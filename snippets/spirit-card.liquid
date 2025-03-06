@@ -1,0 +1,133 @@
+<div>
+  <a
+    href="/products/{{ product.title | downcase | replace: ' ', '-' | replace: ',', '' | replace: '&', 'and' | replace: '.', '' }}"
+    class="group"
+  >
+    <div class="{% if variation %} component-spirit-card-no-polygon {% else %} component-spirit-card {% endif %} w-full !py-16 {{product.metafields.custom.title}}-bg-color">
+      <div class="flex justify-center">
+        <img
+          width=""
+          height=""
+          src="{{ product.metafields.custom.curved_image | img_url: 'master' }}"
+          alt="{{ product.title }}"
+          class=" w-[38%]"
+        >
+      </div>
+      <div class="flex items-center justify-between">
+        <p class="title-vertical left pr-3.5 text-xs lg:pr-6 lg:text-sm duration-300 {{product.metafields.custom.title}}">
+          {{ product.metafields.custom.vertical_title_left }}
+        </p>
+        <img
+          width=""
+          height=""
+          src="{{ product.metafields.custom.packshot | img_url: 'master' }}"
+          alt="{{ product.title }}"
+          class="{% if product.metafields.custom.title == "amaro" %} w-[61%] {% else %} w-[60%] {% endif %}"
+        >
+        <p class="title-vertical right pr-3.5 text-xs lg:pr-6 lg:text-sm {{product.metafields.custom.title}}">
+          {{ product.metafields.custom.vertical_title_right }}
+        </p>
+      </div>
+      <div class="relative z-40 flex cursor-pointer justify-center pt-4">
+        <form method="post" action="/cart/add" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          <div class="opius-button">
+            <button
+              type="button"
+              class="add-to-cart-btn front primary {{product.metafields.custom.title}}"
+              onclick="event.stopPropagation();"
+            >
+              Buy now
+            </button>
+            <div class="back primary {{product.metafields.custom.title}}"></div>
+          </div>
+        </form>
+      </div>
+      <div class="text-th mt-4 text-center font-light text-{{product.metafields.custom.title}}-accent">
+        {{ product.price | money }}
+      </div>
+    </div>
+  </a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    const notification = document.getElementById('cart-notification');
+    const cartCountElement = document.getElementById('cart-count');
+    const closeCart = document.getElementById('close-cart');
+
+    function showNotification() {
+      notification.classList.remove('notification-hidden');
+      notification.classList.add('show');
+    }
+
+    function closeNotification() {
+      notification.classList.remove('notification-show');
+      notification.classList.add('notification-hidden');
+    }
+
+    closeCart.addEventListener('click', closeNotification);
+
+    function updateCartCount() {
+      fetch('/cart.js')
+        .then((response) => response.json())
+        .then((data) => {
+          cartCountElement.textContent = data.item_count;
+        })
+        .catch((error) => {
+          console.error('Error fetching cart data:', error);
+        });
+    }
+
+    // Use onclick to avoid duplicate event listeners
+    addToCartButtons.forEach((button) => {
+      button.onclick = () => {
+        const form = button.closest('form');
+        const formData = new FormData(form);
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok');
+          })
+          .then((data) => {
+            console.log('Item added to cart:', data);
+            showNotification();
+            updateCartCount(); // Update cart count dynamically
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      };
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+    addToCartButtons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        // Prevent the anchor tag's click event
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Call the custom add-to-cart function
+        customAddToCartFunction(button);
+      });
+    });
+  });
+
+  // Example custom add-to-cart function
+  function customAddToCartFunction(button) {
+    console.log('Add to Cart button clicked');
+    // Your custom add-to-cart logic here
+  }
+</script>

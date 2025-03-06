@@ -1,0 +1,87 @@
+{% render 'preloader-short' %}
+{% assign current_url = request.path | split: '/' %}
+{% assign cocktail_slug = current_url[3] %}
+{% assign cocktail = shop.metaobjects.cocktail[cocktail_slug] %}
+
+<div class="wrap bg-gray-50">
+  <section class=" pt-28 xl:pt-36">
+    <h2 class="title-italic mb-20 text-center 2xl:mr-auto">{{ cocktail.title }}</h2>
+    <div class="relative h-[85vh] w-full">
+      <img
+        {% comment %} src="{{ 'vonk-amaro.jpg' | asset_url}}" {% endcomment %}
+        src="{{ cocktail.hero_image | img_url: 'master' }}"
+        width=""
+        height=""
+        alt="Close-up of a cocktail"
+        class=" h-full w-full object-cover"
+      >
+      <div class=" absolute inset-0 h-full w-full bg-[#d5db92] opacity-10 mix-blend-overlay"></div>
+    </div>
+  </section>
+  <section class="mt-24">
+    <h3 class="mt-16 text-center text-3xl font-normal uppercase tracking-wide">Ingredients</h3>
+    <p class="mx-auto mt-8 px-4 text-center font-light lg:px-24">{{ cocktail.ingredients | metafield_tag }}</p>
+    <h3 class="mt-16 text-center text-3xl font-normal uppercase tracking-wide">Method</h3>
+    {% if cocktail.illustration %}
+      <img
+        src="{{ cocktail.illustration | img_url: 'master' }}"
+        width=""
+        height=""
+        alt="illustration"
+        class="mx-auto mt-10 w-48"
+      >
+    {% endif %}
+    <p class="mx-auto mt-8 px-4 text-center font-light lg:px-24">
+      {{ cocktail.method | metafield_tag }}
+    </p>
+  </section>
+
+  <section class="mt-24 pb-24">
+    <h3 class="mt-16 text-center text-2xl font-normal uppercase tracking-wide">You will need</h3>
+    <div class="flex flex-col items-center lg:flex-row">
+      <!-- Previous Cocktail Button -->
+      <div class="opius-button order-2 mx-auto mt-8 lg:order-1">
+        <button class="front primary basic">Previous cocktail</button>
+        <div class="back primary basic"></div>
+      </div>
+
+      <!-- Conditional rendering for secondary image -->
+      {% if cocktail.bottle_2 %}
+        <div class="order-1 grid lg:order-2 lg:grid-cols-2 lg:flex-row">
+          <div>
+            <img
+              src="{{ cocktail.bottles | img_url: 'master' }}"
+              alt="Packshot of Opius flavor to use for cocktail"
+              class="order-1 mx-auto mt-10 w-full max-w-[20rem] lg:order-2"
+              width=""
+              height=""
+            >
+          </div>
+          <div>
+            <img
+              src="{{ cocktail.bottle_2 | img_url: 'master' }}"
+              alt="Packshot of Opius flavor to use for cocktail"
+              class="order-1 mx-auto mt-10 w-full max-w-[20rem] lg:order-2"
+              width=""
+              height=""
+            >
+          </div>
+        </div>
+      {% else %}
+        <img
+          src="{{ cocktail.bottles | img_url: 'master'  }}"
+          alt="Packshot of Opius flavor to use for cocktail"
+          class="order-1 mx-auto mt-10 w-full max-w-xl lg:order-2"
+          width=""
+          height=""
+        >
+      {% endif %}
+
+      <!-- Next Cocktail Button -->
+      <div class="opius-button order-3 mx-auto mt-8">
+        <button class="front primary basic">Next cocktail</button>
+        <div class="back primary basic"></div>
+      </div>
+    </div>
+  </section>
+</div>

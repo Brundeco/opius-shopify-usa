@@ -1,0 +1,5 @@
+<div class="hide-on-scroll bg-black py-3 flex justify-center items-center text-opiusBeige fixed top-0 z-50 w-full">
+  {% for discount in shop.metaobjects.discount_code.values %}
+    <p class=" text-xs lg:text-sm">{{ discount.discount_code }}</p>
+  {% endfor %}
+</div>

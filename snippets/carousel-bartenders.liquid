@@ -1,0 +1,115 @@
+<div class="bg-black px-4 pb-10 pt-16 lg:pb-16 lg:pt-32">
+  <div class="flex items-center justify-center">
+    <h4 class="title-italic mb-10 text-center text-opiusBeige">
+      What <br>
+      top bartenders <br>
+      say
+    </h4>
+  </div>
+
+  <div id="videoCarousel" class="relative w-full mx-auto flex justify-center items-center gap-7 max-w-5xl">
+    <button
+      id="prevBtn"
+      class=" bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 hidden lg:block"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#989898" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <div class="overflow-hidden relative">
+      <div class="flex transition-transform duration-300 ease-in-out">
+        {% assign sorted_items = shop.metaobjects.testimonial_videos.values | sort: 'index' %}
+        {% for video in sorted_items %}
+          <div class="w-full flex-shrink-0">
+            <video class="w-full h-auto" controls>
+              <source src="{{ video.video | file_url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <button
+      id="nextBtn"
+      class=" bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 hidden lg:block"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#989898" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+  <div class="mt-6 flex space-x-4 justify-center">
+    {% for video in shop.metaobjects.testimonial_videos.values %}
+      <button
+        class="carousel-dot w-2 h-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75"
+      ></button>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.querySelector('#videoCarousel .flex');
+    const slides = Array.from(carousel.children);
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dots = document.querySelectorAll('.carousel-dot');
+
+    function updateCarousel() {
+      carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('bg-opacity-100', index === currentSlide);
+      });
+      stopAllVideosExcept(currentSlide);
+    }
+
+    function stopAllVideosExcept(exceptIndex) {
+      slides.forEach((slide, index) => {
+        const video = slide.querySelector('video');
+        if (video && index !== exceptIndex) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentSlide = index;
+        updateCarousel();
+      });
+    });
+
+    // Ensure only one video plays at a time
+    slides.forEach((slide, index) => {
+      const video = slide.querySelector('video');
+      if (video) {
+        video.addEventListener('play', function () {
+          currentSlide = index;
+          stopAllVideosExcept(index);
+          updateCarousel();
+        });
+      }
+    });
+
+    updateCarousel();
+  });
+</script>

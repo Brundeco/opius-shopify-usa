@@ -1,0 +1,250 @@
+{% render 'preloader-short' %}
+
+{% assign current_url = request.path | split: '/' %}
+{% assign cocktail_slug = current_url[3] %}
+
+{% comment %} Create an array of all cocktail slugs {% endcomment %}
+{% assign all_cocktail_slugs = '' %}
+{% for cocktail in shop.metaobjects.cocktail.values %}
+  {% assign all_cocktail_slugs = all_cocktail_slugs | append: cocktail.system.handle | append: ',' %}
+{% endfor %}
+{% assign all_cocktail_slugs = all_cocktail_slugs | split: ',' %}
+
+{% comment %} Find the index of the current cocktail {% endcomment %}
+{% assign current_index = 0 %}
+{% for slug in all_cocktail_slugs %}
+  {% if slug == cocktail_slug %}
+    {% break %}
+  {% endif %}
+  {% assign current_index = current_index | plus: 1 %}
+{% endfor %}
+
+{% comment %} Determine the previous and next cocktail slugs {% endcomment %}
+{% assign prev_index = current_index | minus: 1 %}
+{% assign next_index = current_index | plus: 1 %}
+
+{% if prev_index < 0 %}
+  {% assign prev_index = all_cocktail_slugs.size | minus: 1 %}
+{% endif %}
+
+{% if next_index >= all_cocktail_slugs.size %}
+  {% assign next_index = 0 %}
+{% endif %}
+
+{% assign prev_cocktail_slug = all_cocktail_slugs[prev_index] %}
+{% assign next_cocktail_slug = all_cocktail_slugs[next_index] %}
+
+{% assign cocktail = shop.metaobjects.cocktail[cocktail_slug] %}
+{% if cocktail %}
+  <div class="wrap bg-gray-50">
+    <section class=" pt-28 xl:pt-36">
+      <h2 class="title-italic mb-20 text-center 2xl:mr-auto">{{ cocktail.title }}</h2>
+      <div class="relative h-[85vh] w-full">
+        <img
+          {% comment %} src="{{ 'vonk-amaro.jpg' | asset_url}}" {% endcomment %}
+          src="{{ cocktail.hero_image | img_url: 'master' }}"
+          width=""
+          height=""
+          alt="Close-up of a cocktail"
+          class=" h-full w-full object-cover"
+        >
+        <div class=" absolute inset-0 h-full w-full bg-[#d5db92] opacity-10 mix-blend-overlay"></div>
+      </div>
+    </section>
+    <section class="mt-24 cocktail-metafield-r-t">
+      <h3 class="mt-16 text-center text-3xl font-normal uppercase tracking-wide">Ingredients</h3>
+      <p class="mx-auto mt-8 px-4 text-center font-light lg:px-24">{{ cocktail.ingredients | metafield_tag }}</p>
+      <h3 class="mt-16 text-center text-3xl font-normal uppercase tracking-wide">Method</h3>
+      {% if cocktail.illustration %}
+        <img
+          src="{{ cocktail.illustration | img_url: 'master' }}"
+          width=""
+          height=""
+          alt="illustration"
+          class="mx-auto mt-10 w-48"
+        >
+      {% endif %}
+      <p class="mx-auto mt-8 px-4 text-center font-light lg:px-24">
+        {{ cocktail.method | metafield_tag }}
+      </p>
+    </section>
+
+    {% assign video_reference = cocktail.inspiration %}
+    {% comment %} <p class="">VIDEO REFERENCE: {{ video_reference }}</p> {% endcomment %}
+    {% if video_reference != blank %}
+      {% assign video_url = video_reference | file_url %}
+      {% if video_url != blank %}
+        {% comment %} <p class="">VIDEO URL: {{ video_url }}</p> {% endcomment %}
+        <section class="mt-24">
+          <h3 class="mt-16 text-center text-2xl font-normal uppercase tracking-wide">Inspiration</h3>
+          <div class="mx-auto mt-8 flex max-w-4xl justify-center overflow-hidden">
+            <video controls>
+              <source src="{{ video_url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </section>
+      {% else %}
+        <p></p>
+      {% endif %}
+    {% else %}
+      <p></p>
+    {% endif %}
+
+    <section class="mt-24 pb-24">
+      <h3 class="mt-16 text-center text-2xl font-normal uppercase tracking-wide">You will need</h3>
+      <div class="flex flex-col items-center lg:flex-row">
+        <!-- Previous Cocktail Button -->
+        <div class="opius-button order-2 mx-auto mt-8 lg:order-1">
+          <a
+            href="{{ routes.pages_url }}/cocktails/{{ prev_cocktail_slug }}"
+            class="front primary basic flex justify-center items-center"
+            >Previous cocktail</a
+          >
+          <div class="back primary basic"></div>
+        </div>
+
+        <!-- Conditional rendering for secondary image -->
+        {% if cocktail.bottle_2 %}
+          <div class="order-1 grid lg:order-2 lg:grid-cols-2 lg:flex-row">
+            <div>
+              <img
+                src="{{ cocktail.bottles | img_url: 'master' }}"
+                alt="Packshot of Opius flavor to use for cocktail"
+                class="order-1 mx-auto mt-10 w-full max-w-[20rem] lg:order-2"
+                width=""
+                height=""
+              >
+            </div>
+            <div>
+              <img
+                src="{{ cocktail.bottle_2 | img_url: 'master' }}"
+                alt="Packshot of Opius flavor to use for cocktail"
+                class="order-1 mx-auto mt-10 w-full max-w-[20rem] lg:order-2"
+                width=""
+                height=""
+              >
+            </div>
+          </div>
+        {% else %}
+          <img
+            src="{{ cocktail.bottles | img_url: 'master'  }}"
+            alt="Packshot of Opius flavor to use for cocktail"
+            class="order-1 mx-auto mt-10 w-full max-w-xl lg:order-2"
+            width=""
+            height=""
+          >
+        {% endif %}
+
+        <!-- Next Cocktail Button -->
+        <div class="opius-button order-3 mx-auto mt-8">
+          <a
+            href="/pages/cocktails/{{ next_cocktail_slug }}"
+            class="front primary basic flex justify-center items-center"
+            >Next cocktail</a
+          >
+          <div class="back primary basic"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+{% else %}
+  <div class="wrap bg-black pt-20 xl:pt-36">
+    <h1 class=" title-italic mb-20 text-center text-opiusBeige 2xl:mr-auto">
+      Our perfect <br>
+      serves
+    </h1>
+    <div class="grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
+      {% for cocktail in shop.metaobjects.cocktail.values %}
+        {% if cocktail.perfect_serve.value == true %}
+          <div class="item h-full w-full">
+            {% render 'cocktail-card', cocktail: cocktail %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="wrap bg-black pt-28">
+    <h1 class=" title-italic title-italic mb-20 text-center text-opiusBeige 2xl:mr-auto ">
+      More <br>
+      Cocktails
+    </h1>
+
+    <div class="filter-container text-center mb-10 gap-2 flex flex-wrap justify-center">
+      <button class="flavor-button border-opiusBeige border rounded-full px-2 py-1 text-opiusBeige" data-flavor="all">
+        All
+      </button>
+      <button
+        class="flavor-button border-opiusBeige border rounded-full px-2 py-1 text-opiusBeige"
+        data-flavor="albedo"
+      >
+        Albedo
+      </button>
+      <button class="flavor-button border-opiusBeige border rounded-full px-2 py-1 text-opiusBeige" data-flavor="amaro">
+        Amaro
+      </button>
+      <button
+        class="flavor-button border-opiusBeige border rounded-full px-2 py-1 text-opiusBeige"
+        data-flavor="nigredo"
+      >
+        Nigredo
+      </button>
+      <button
+        class="flavor-button border-opiusBeige border rounded-full px-2 py-1 text-opiusBeige"
+        data-flavor="rubedo"
+      >
+        Rubedo
+      </button>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3">
+      {% for cocktail in shop.metaobjects.cocktail.values %}
+        {% if cocktail.perfect_serve.value == false %}
+          <div class="item item-no-ps h-full w-full" data-flavor="{{ cocktail.flavor.value | join: ',' }}">
+            {% render 'cocktail-card', cocktail: cocktail %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const flavorButtons = document.querySelectorAll('.flavor-button');
+    const cocktailItems = document.querySelectorAll('.item-no-ps');
+
+    // Set "All" button to active on page load
+    const allButton = document.querySelector('.flavor-button[data-flavor="all"]');
+    allButton.classList.remove('text-opiusBeige');
+    allButton.classList.add('bg-opiusBeige', 'text-black');
+
+    flavorButtons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        // Remove active state from all buttons
+        flavorButtons.forEach((btn) => {
+          btn.classList.remove('bg-opiusBeige', 'text-black');
+          btn.classList.add('text-opiusBeige');
+        });
+
+        // Add active state to clicked button
+        event.target.classList.remove('text-opiusBeige');
+        event.target.classList.add('bg-opiusBeige', 'text-black');
+
+        const selectedFlavor = event.target.dataset.flavor;
+
+        cocktailItems.forEach((item) => {
+          const itemFlavors = item.dataset.flavor.split(',').map((flavor) => flavor.trim().toLowerCase());
+
+          if (selectedFlavor === 'all' || itemFlavors.includes(selectedFlavor.toLowerCase())) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

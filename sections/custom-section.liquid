@@ -1,0 +1,46 @@
+{% schema %}
+{
+  "name": "Custom Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to our store!"
+    },
+    {
+      "type": "textarea",
+      "id": "text_content",
+      "label": "Text Content",
+      "default": "Here is a description about your store or product."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="custom-section">
+  <div class="container">
+    <h2>{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.text_content }}</p>
+  </div>
+</section>
+
+<style>
+  .custom-section {
+    padding: 40px 0;
+    text-align: center;
+  }
+  .custom-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  .custom-section p {
+    font-size: 1.2em;
+  }
+</style>

@@ -1,0 +1,11 @@
+{% assign cocktail = metaobject %}
+
+{% if cocktail %}
+  <h1>{{ cocktail.fields.name }}</h1>
+  <p>{{ cocktail.fields.description }}</p>
+
+  <p>{{ cocktail.fields.ingredients }}</p>
+  <p>{{ cocktail.fields.instructions }}</p>
+{% else %}
+  <p>This cocktail could not be found. Please check the URL.</p>
+{% endif %}

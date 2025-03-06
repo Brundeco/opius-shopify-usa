@@ -1,0 +1,377 @@
+{% comment %} {% render 'preloader-short' %} {% endcomment %}
+
+{% render 'marquee' %}
+
+<div class="mt-20 lg:pt-24">
+  <div class="wrap">
+    <div class="flex flex-col gap-5 lg:gap-5 lg:flex-row justify-center">
+      {% render 'carousel-shop' %}
+
+      <div class="flex flex-col justify-center px-5 lg:px-10 py-5">
+        <div class="flex flex-col">
+          <h3 class="text-xl font-medium uppercase md:text-3xl">{{ product.title }}</h3>
+          <form action="/cart/add" method="post" enctype="multipart/form-data" class=" mt-1 lg:mt-4">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            {% if product.variants.size > 1 %}
+              <select id="product-variant" name="id" class="border border-black py-1.5 px-2 mb-8">
+                {% for variant in product.variants %}
+                  <option
+                    value="{{ variant.id }}"
+                    {% unless variant.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    {{ variant.title }}
+                    {% unless variant.available %}(Sold Out){% endunless %}
+                  </option>
+                {% endfor %}
+              </select>
+            {% endif %}
+
+            <p class="text-xl font-medium uppercase mb-3">{{ product.price || money }}</p>
+
+            <div class="jdgm-widget jdgm-preview-badge mb-5" data-id="{{ product.id }}">
+              {{ product.metafields.judgeme.badge }}
+            </div>
+
+            <div class="flex min-h-6 w-full max-w-96 flex-col">
+              <div class="flex gap-4">
+                <div class="flex mb-4 border border-black px-2 py-1 w-20 h-11">
+                  <button type="button" class="decrement">-</button>
+                  <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    class="mx-2 w-8 text-center"
+                  >
+                  <button type="button" class="increment">+</button>
+                </div>
+                <div class="flex w-full reference-button">
+                  <div class="opius-button !w-full">
+                    <button type="button" class="add-to-cart-btn">
+                      <p class="front primary basic-var flex items-center justify-center">Add to Cart</p>
+                    </button>
+                    <div class="back primary basic"></div>
+                  </div>
+                </div>
+
+                <div class="flex fixed right-4 bottom-4 lg:hidden show-after-viewport-height z-[499]">
+                  <div class="opius-button !w-[90vw]">
+                    <button type="button" class="add-to-cart-btn">
+                      <p class="front primary basic-var flex items-center justify-center">Add to Cart</p>
+                    </button>
+                    <div class="back primary basic"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col justify-start mb-4 mt-2">
+                <div class="flex border-opacity-25 flex-col gap-3 py-3 text-sm force-padding-metafields">
+                  {{ product.metafields.custom.bulletpoints_product | metafield_tag }}
+                  {% comment %}
+                    <p class="flex gap-2 items-center">
+                      <img
+                        width=""
+                        height=""
+                        src="{{ 'opius-icon-1.svg' | asset_url  }}"
+                        alt="{{ product.title }}"
+                        class=" w-4 inline-block"
+                      >
+                      <span class="">N°1 choice of chefs & bartenders</span>
+                    </p>
+                    <p class="flex gap-2 items-center">
+                      <img
+                        width=""
+                        height=""
+                        src="{{ 'opius-icon-2.svg' | asset_url  }}"
+                        alt="{{ product.title }}"
+                        class=" w-4 inline-block"
+                      >
+                      <span class="">Secret recipe: 100% crafsmanship</span>
+                    </p>
+                    <p class="flex gap-2 items-center">
+                      <img
+                        width=""
+                        height=""
+                        src="{{ 'opius-icon-4.svg' | asset_url  }}"
+                        alt="{{ product.title }}"
+                        class=" w-4 inline-block"
+                      >
+                      <span class="">Intense & gastronomic flavours </span>
+                    </p>
+                    <p class="flex gap-2 items-center">
+                      <img
+                        width=""
+                        height=""
+                        src="{{ 'opius-icon-3.svg' | asset_url  }}"
+                        alt="{{ product.title }}"
+                        class=" w-4 inline-block"
+                      >
+                      <span class="">Social elixir: activates GABA-receptors </span>
+                    </p>
+                    <p class="flex gap-2 items-center">
+                      <img
+                        width=""
+                        height=""
+                        src="{{ 'opius-icon-5.svg' | asset_url  }}"
+                        alt="{{ product.title }}"
+                        class=" w-4 inline-block"
+                      >
+                      <span class="">Handmade in Belgium </span>
+                    </p>
+                  {% endcomment %}
+                </div>
+              </div>
+              <div class=" bg-black w-full h-px mb-4 bg-opacity-80"></div>
+              <div class="flex flex-col justify-start">
+                <div class="flex flex-col gap-1 py-3 text-sm font-medium">
+                  {% for block in shop.metaobjects.extra_product_information.values %}
+                    <span>{{ block.text | metafield_tag }}</span>
+                  {% endfor %}
+                  {% comment %}
+                    <p class=""><span class="">Buy 2 = Free shipping</span></p>
+                    <p class=""><span class="">Next day delivery = all orders before 16h</span></p>
+                  {% endcomment %}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} </div> {% endcomment %}
+
+{% if product.metafields.custom.accordion_title_1 %}
+  <div class="wrap mt-6">
+    <div class="">
+      <div class="flex flex-col py-6 lg:py-10 px-4 justify-center items-center max-w-4xl mx-auto">
+        <p class=" text-left w-full font-medium uppercase text-2xl mb-4">Extra info</p>
+        <div class="accordion-container w-full">
+          {% for i in (1..9) %}
+            {% assign title_key = 'accordion_title_' | append: i %}
+            {% assign content_key = 'accordion_content_' | append: i %}
+            {% assign title = product.metafields.custom[title_key] %}
+            {% assign content = product.metafields.custom[content_key] %}
+
+            {% if title != blank and content != blank %}
+              <div class="accordion-item border-b border-black border-opacity-10">
+                <div class="accordion-title flex justify-between items-center cursor-pointer">
+                  <button class="py-4 font-medium">
+                    {{ title }}
+                  </button>
+                  <div class="icon text-xl">+</div>
+                </div>
+                <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500">
+                  <div class="content-inner pb-4 text-sm">
+                    {{ content | metafield_tag }}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="mt-10">
+  {% render 'carousel-bartenders' %}
+</div>
+
+<div class="wrap mt-12 lg:mt-20">
+  <div class=" max-w-screen-xl mx-auto">
+    <div style="clear:both"></div>
+    <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.widget }}
+    </div>
+  </div>
+</div>
+
+{% assign all_products = collections['featured-products'].products %}
+{% assign current_product = product.id %}
+{% assign product_count = 0 %}
+
+<div class="wrap">
+  <div class="mx-auto">
+    <div class="mt-10">
+      <div class="">
+        <p class=" text-left w-full font-medium uppercase text-2xl mb-4">You may also like</p>
+        {% comment %} <h3 class="mb-6 mt-14 text-2xl lg:text-3xl font-normal uppercase">You may also like</h3> {% endcomment %}
+      </div>
+      <div class=" mb-16 lg:mb-24 grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
+        {% for product in all_products %}
+          {% if product.id != current_product and product_count < 5 %}
+            <div class="{% if product_count >= 2 %}hidden lg:block{% endif %}">
+              {% render 'product-card', product: product %}
+            </div>
+            {% assign product_count = product_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render 'cart-notification' %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Select all Add to Cart buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+    addToCartButtons.forEach((button) => {
+      button.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        console.log('✅ Add to Cart clicked!');
+
+        // Find the closest form
+        let form = button.closest('form');
+
+        if (!form) {
+          console.warn('⚠️ No form found for Add to Cart button.');
+          return;
+        }
+
+        // Get product ID & quantity (if available)
+        let formData = new FormData(form);
+
+        // Use Shopify AJAX API to add product without redirecting
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('✅ Product added to cart:', data);
+          })
+          .catch((error) => {
+            console.error('❌ Error adding to cart:', error);
+          });
+      });
+    });
+  });
+</script>
+
+<!--
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Select all Add to Cart buttons
+      const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+      addToCartButtons.forEach((button) => {
+        button.addEventListener('click', function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          console.log('✅ Add to Cart clicked!');
+
+          // Find the closest form
+          let form = button.closest('form');
+
+          if (!form) {
+            console.warn('⚠️ No form found for Add to Cart button.');
+            return;
+          }
+
+          // Get product ID & quantity (if available)
+          let formData = new FormData(form);
+
+          // Push event to dataLayer
+          window.dataLayer.push({
+            event: 'add_to_cart',
+            ecommerce: {
+              currency: '{{ shop.currency }}',
+              value: '{{ product.price | money_without_currency }}',
+              items: [
+                {
+                  item_name: '{{ product.title }}',
+                  item_id: '{{ product.id }}',
+                  price: '{{ product.price | money_without_currency }}',
+                  quantity: formData.get('quantity') || 1,
+                },
+              ],
+            },
+          });
+
+          console.log('✅ GTM add_to_cart event pushed!');
+
+          // Use Shopify AJAX API to add product without redirecting
+          fetch('/cart/add.js', {
+            method: 'POST',
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log('✅ Product added to cart:', data);
+            })
+            .catch((error) => {
+              console.error('❌ Error adding to cart:', error);
+            });
+        });
+      });
+    });
+  </script>
+
+  <script>
+    window.dataLayer.push({
+      event: 'view_item',
+      ecommerce: {
+        currency: '{{ shop.currency }}',
+        value: '{{ product.price | money_without_currency }}',
+        items: [
+          {
+            item_name: '{{ product.title }}',
+            item_id: '{{ product.id }}',
+            price: '{{ product.price | money_without_currency }}',
+          },
+        ],
+      },
+    });
+  </script>
+-->
+
+<script>
+  // JavaScript for handling increment and decrement of quantity
+  document.querySelector('.increment').addEventListener('click', function () {
+    let quantityInput = document.getElementById('quantity');
+    let currentValue = parseInt(quantityInput.value);
+    if (!isNaN(currentValue)) {
+      quantityInput.value = currentValue + 1;
+    }
+  });
+
+  document.querySelector('.decrement').addEventListener('click', function () {
+    let quantityInput = document.getElementById('quantity');
+    let currentValue = parseInt(quantityInput.value);
+    if (!isNaN(currentValue) && currentValue > 1) {
+      quantityInput.value = currentValue - 1;
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const referenceButton = document.querySelector('.reference-button');
+    const secondaryButton = document.querySelector('.show-after-viewport-height');
+
+    if (referenceButton && secondaryButton) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) {
+            secondaryButton.classList.add('visible');
+          } else {
+            secondaryButton.classList.remove('visible');
+          }
+        },
+        { threshold: 0 }
+      );
+
+      observer.observe(referenceButton);
+    }
+  });
+</script>

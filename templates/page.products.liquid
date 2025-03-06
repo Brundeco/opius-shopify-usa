@@ -1,0 +1,86 @@
+{% comment %} {% render 'preloader-short' %} {% endcomment %}
+
+{% render 'marquee' %}
+
+<div class="wrap pt-28 lg:pt-32">
+  {% assign spirits_collection = collections.spirits %}
+
+  <div class="mt-4 lg:mt-12">
+    <div class="grid lg:gap-6 lg:gap-y-0 lg:grid-cols-4">
+      {% for product in spirits_collection.products %}
+        <div class="spirit-card spirit-card-var lg:order-1">
+          {% render 'spirit-card-var', product: product, variation: false %}
+        </div>
+        <div class="spirit-card spirit-card-wheel lg:order-2 -translate-y-16">
+          {% render 'spirit-card-wheel', product: product, variation: true %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% comment %}
+  <div class="wrap pt-28 lg:pt-32">
+    {% assign spirits_collection = collections.spirits %}
+
+    <div class=" mt-4 lg:mt-12">
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {% for product in spirits_collection.products %}
+          <div class="">
+            {% render 'spirit-card-var', product: product, variation: false %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class=" mt-8 xl:-mt-10 mb-10 relative">
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {% for product in spirits_collection.products %}
+          <div class="">
+            {% render 'spirit-card-wheel', product: product, variation: true %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endcomment %}
+
+<div class=" w-full bg-black py-20 flex gap-16 px-6 lg:px-20 text-white justify-center flex-col items-center">
+  <h4 class="title-italic !lg:my-16 !my-8 text-center">
+    SECRET EXTRACTION <br>
+    TECHNIQUES
+  </h4>
+  {% for technique in shop.metaobjects.secret_techniques.values %}
+    {% assign image_width = 'w-16' %}
+    {% case forloop.index %}
+      {% when 1 %}
+        {% assign image_width = 'w-16' %}
+      {% when 2 %}
+        {% assign image_width = 'w-20' %}
+      {% when 3 %}
+        {% assign image_width = 'w-24' %}
+      {% when 4 %}
+        {% assign image_width = 'w-14' %}
+    {% endcase %}
+    <div class="flex flex-col lg:flex-row lg:gap-10 gap-6">
+      <div class=" w-24 flex justify-center items-center">
+        <img
+          src="{{ technique.image | img_url: 'master' }}"
+          alt="{{ technique.title }}"
+          width=""
+          height=""
+          class="{{ image_width }} col-span-1"
+        >
+      </div>
+      <div class="flex flex-col gap-3 lg:ml-10 justify-start items-start col-span-11 lg:max-w-2xl">
+        <h5 class=" uppercase">{{ technique.title }}</h5>
+        <p class=" text-sm font-light">
+          {{ technique.description }}
+        </p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% render 'cart-notification' %}

@@ -1,0 +1,55 @@
+<!-- Include Swiper CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/swiper/swiper-bundle.min.css"
+>
+
+<div class="flex lg:max-w-[40vw] mt-10 lg:mt-0">
+  <div class=" hidden lg:flex flex-col px-2 mr-2">
+    <div class="swiper-button-prev !relative !left-0 !hidden lg:!flex"></div>
+  </div>
+  <div class="group relative w-full h-full max-w-3xl cursor-pointer flex justify-center items-center overflow-hidden bg-black">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% for media in product.media %}
+          <div class="swiper-slide">
+            <img
+              width=""
+              height=""
+              src="{{ media.preview_image.src | img_url: 'master' }}"
+              alt="{{ media.alt }}"
+              class="object-cover w-full h-full duration-300"
+            >
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+  <div class="hidden lg:flex flex-col px-2 ml-2">
+    <div class="swiper-button-next !relative !right-0 !hidden lg:!flex"></div>
+  </div>
+</div>
+
+<!-- Include Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper', {
+      loop: true, // Loop through slides
+      autoplay: {
+        delay: 3000, // Slide every 3 seconds
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  });
+</script>

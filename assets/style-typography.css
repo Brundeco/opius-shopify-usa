@@ -1,0 +1,197 @@
+html {
+  font-size: 18px;
+  font-family: Gotham, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--base-black);
+}
+.force-padding-metafields li {
+  padding: 4px 0;
+}
+
+.jdgm-rev-widg__title {
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  font-size: 1.5rem !important;
+}
+
+.cocktail-metafield-r-t .metafield-rich_text_field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.force-f-size .metafield-rich_text_field * {
+  font-size: 0.7rem !important;
+}
+
+.force-t-contact * {
+  padding: 7px 0 !important;
+}
+
+/* @media (min-width: 1024px) {
+  .force-t-contact * {
+    text-align: right !important;
+  }
+} */
+
+.force-color-rubedo,
+.force-color-rubedo * {
+  color: var(--opius-rubedo-accent);
+  text-align: center !important;
+  text-transform: uppercase !important;
+  font-size: 0.7rem;
+}
+.force-color-nigredo,
+.force-color-nigredo * {
+  color: var(--opius-nigredo-accent);
+  text-align: center !important;
+  text-transform: uppercase !important;
+  font-size: 0.7rem;
+}
+.force-color-albedo,
+.force-color-albedo * {
+  color: var(--opius-albedo-accent);
+  text-align: center !important;
+  text-transform: uppercase !important;
+  font-size: 0.7rem;
+}
+.force-color-amaro,
+.force-color-amaro * {
+  color: var(--opius-amaro-accent);
+  text-align: center !important;
+  text-transform: uppercase !important;
+  font-size: 0.7rem;
+}
+
+.text-rubedo-accent {
+  color: var(--opius-rubedo-accent) !important;
+}
+
+.text-nigredo-accent {
+  color: var(--opius-nigredo-accent) !important;
+}
+
+.text-albedo-accent {
+  color: var(--opius-albedo-accent) !important;
+}
+
+.text-amaro-accent {
+  color: var(--opius-amaro-accent) !important;
+}
+
+/* Shopify Text Styling */
+.shopify-text p {
+  font-size: 1rem !important;
+}
+
+@media (min-width: 1024px) {
+  .shopify-text p {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Strapi Formatted Text */
+.strapi-formatted li {
+  list-style-type: disc;
+}
+
+.strapi-formatted p span {
+  color: var(--theme-beige) !important;
+}
+
+/* Title Italic */
+.title-italic {
+  margin-bottom: 2.5rem;
+  transform: rotate(-10deg);
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 0.1em;
+}
+
+@media (min-width: 1280px) {
+  .title-italic {
+    margin-bottom: 5rem;
+    font-size: 1.875rem;
+  }
+}
+
+/* Title Vertical */
+.title-vertical,
+title-wheel-var {
+  font-weight: 400;
+  text-transform: uppercase;
+  writing-mode: vertical-lr;
+  letter-spacing: 3px;
+}
+
+.title-vertical.amaro,
+title-wheel-var.amaro {
+  color: var(--opius-amaro-accent);
+}
+
+.title-vertical.albedo,
+title-wheel-var.albedo {
+  color: var(--opius-albedo-accent);
+}
+
+.title-vertical.rubedo,
+title-wheel-var.rubedo {
+  color: var(--opius-rubedo-accent);
+}
+
+.title-vertical.nigredo,
+title-wheel-var.nigredo {
+  color: var(--opius-nigredo-accent);
+}
+
+.title-vertical.left {
+  writing-mode: tb-rl;
+  transform: rotate(-180deg);
+}
+
+/* Title Horizontal */
+.title-horizontal {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  writing-mode: vertical-lr;
+}
+
+.title-horizontal.amaro {
+  color: var(--opius-amaro-accent);
+}
+
+.title-horizontal.albedo {
+  color: var(--opius-albedo-accent);
+}
+
+.title-horizontal.nigredo {
+  color: var(--opius-rubedo-accent);
+}
+
+@media (min-width: 768px) {
+  .title-horizontal {
+    writing-mode: horizontal-tb;
+  }
+
+  .title-horizontal.left {
+    writing-mode: tb-rl;
+    transform: rotate(-180deg);
+  }
+
+  .title-horizontal.left {
+    font-size: 0.6rem;
+    writing-mode: horizontal-tb;
+    transform: rotate(0deg);
+  }
+
+  .title-horizontal.right {
+    font-size: 0.6rem;
+  }
+}

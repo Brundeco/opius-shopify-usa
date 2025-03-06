@@ -1,0 +1,77 @@
+<footer class="wrap bg-black py-12 pt-14 text-opiusBeige">
+  {% render 'faq' %}
+  <div class=" mx-auto flex max-w-screen-2xl flex-col items-center justify-center pt-14">
+    <a href="mailto:info@opius.be" class="mb-5"> info@opius.be </a>
+    <div class="mb-5 flex gap-x-4">
+      <a target="_blank" href="https://www.facebook.com/opiusdistillery">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+      <a target="_blank" href="https://www.instagram.com/opius.distillery">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+    </div>
+    <div class="mb-3 flex flex-col lg:flex-row items-center gap-x-2">
+      <a class=" hover:underline mb-3 lg:mb-0" href="/pages/terms-and-conditions"> Terms and conditions </a>
+      <p class="hidden lg:inline-block">•</p>
+      <a class=" hover:underline mb-3 lg:mb-0" href="/pages/privacy-policy"> Privacy Policy </a>
+      <p class="hidden lg:inline-block">•</p>
+      <a class=" hover:underline" href="/pages/contact"> Contact </a>
+    </div>
+    <p class="">All rights reserved</p>
+    <div class="flex flex-col items-center justify-center">
+      <a href="/">
+        <img
+          width=""
+          height=""
+          src="{{ 'logo-light.svg' | asset_url }}"
+          alt="logo opius"
+          class="mb-3 mt-10 max-w-[5rem]"
+        >
+      </a>
+
+      <p class=" mt-10 text-sm">
+        Website by
+        <a href="https://newnarrative.be" class=" hover:underline"> New Narrative </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const accordionTitles = document.querySelectorAll('.accordion-title');
+
+    accordionTitles.forEach((title) => {
+      title.addEventListener('click', () => {
+        const item = title.parentElement;
+        const icon = title.querySelector('.icon');
+        const content = item.querySelector('.accordion-content');
+
+        // Toggle 'active' class
+        item.classList.toggle('active');
+
+        // Toggle icon between plus and minus
+        if (item.classList.contains('active')) {
+          icon.textContent = '−'; // Change to minus
+          content.style.maxHeight = content.scrollHeight + 'px'; // Set to content height
+        } else {
+          icon.textContent = '+'; // Change back to plus
+          content.style.maxHeight = '0'; // Collapse
+        }
+
+        // Collapse other accordion items and reset their icons
+        accordionTitles.forEach((otherTitle) => {
+          if (otherTitle !== title) {
+            const otherItem = otherTitle.parentElement;
+            const otherIcon = otherTitle.querySelector('.icon');
+            const otherContent = otherItem.querySelector('.accordion-content');
+
+            otherItem.classList.remove('active');
+            otherIcon.textContent = '+'; // Reset icon to plus
+            otherContent.style.maxHeight = '0'; // Collapse others
+          }
+        });
+      });
+    });
+  });
+</script>

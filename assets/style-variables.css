@@ -1,0 +1,30 @@
+:root {
+  /* breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1680px;
+  --breakpoint-4xl: 1921px;
+
+  /* Base Colors */
+  --base-black: #1c1c1c;
+  --off-black: #383636;
+  --off-white: #f7f7f5;
+
+  /* Theme Colors */
+  --theme-beige: #bfbbad;
+  --theme-yellow: #f2d47a;
+  --theme-blue: #76a1b4;
+  --theme-deep-green: #00272c;
+  --theme-red: #a22e21;
+
+  /* Opius Accent Colors */
+  --opius-amaro-accent: #be9617;
+  --opius-albedo-accent: #c5ebf4;
+  --opius-nigredo-accent: #eafeff;
+  --opius-rubedo-accent: #e0d4af;
+
+  --transition-one: 0.3s ease-in-out;
+}

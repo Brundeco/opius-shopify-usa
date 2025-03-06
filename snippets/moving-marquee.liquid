@@ -1,0 +1,53 @@
+<style>
+  body {
+    padding-top: 40px;
+  }
+  .marquee-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid black;
+    padding: 0.5rem 0;
+    z-index: 50;
+    overflow: hidden;
+  }
+  .marquee-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 300s linear infinite;
+  }
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+</style>
+
+<div class="block marquee-container">
+  <div class="marquee-content text-sm">
+    {% for discount in shop.metaobjects.discount_code.values %}
+      {% assign promo_text = discount.discount_code %}
+      {% comment %} <p class=" my-24 bg-red-200 text-white">{{ discount.discount_code }}</p> {% endcomment %}
+    {% endfor %}
+
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+    {{ promo_text }}
+  </div>
+</div>

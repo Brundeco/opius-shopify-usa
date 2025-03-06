@@ -1,0 +1,304 @@
+body {
+  background-color: #fcfcfc;
+}
+
+.wrap {
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .wrap {
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+  }
+}
+
+.aspect-square {
+  &::after {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.stack > * {
+  grid-area: 1 / 1;
+}
+
+.amaro-bg-color {
+  background-color: var(--theme-yellow);
+}
+
+.albedo-bg-color {
+  background-color: var(--theme-blue);
+}
+
+.nigredo-bg-color {
+  background-color: var(--theme-deep-green);
+}
+
+.rubedo-bg-color {
+  background-color: var(--theme-red);
+}
+
+.amaro-accent {
+  color: var(--opius-amaro-accent);
+}
+
+.amaro-accent.active {
+  border-bottom: 1px solid var(--opius-amaro-accent);
+  padding-bottom: 2px;
+}
+
+.albedo-accent {
+  color: var(--opius-albedo-accent);
+}
+
+.albedo-accent.active {
+  border-bottom: 1px solid var(--opius-albedo-accent);
+  padding-bottom: 2px;
+}
+
+.nigredo-accent {
+  color: var(--opius-nigredo-accent);
+}
+
+.nigredo-accent.active {
+  border-bottom: 1px solid var(--opius-nigredo-accent);
+  padding-bottom: 2px;
+}
+
+.rubedo-accent {
+  color: var(--opius-rubedo-accent);
+}
+
+.rubedo-accent.active {
+  border-bottom: 1px solid var(--opius-rubedo-accent);
+  padding-bottom: 2px;
+}
+
+.fade-out-slider {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}
+
+.fade-in-slider {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.carousel-item.active {
+  display: block; /* Show only active slide */
+  opacity: 1;
+}
+
+.carousel-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dot.active {
+  background-color: #333;
+}
+
+.component-spirit-card {
+  clip-path: polygon(50% 0%, 80% 0, 100% 15%, 100% 100%, 0 100%, 0% 15%, 20% 0);
+  padding: 2.5rem 0 3.3rem;
+}
+
+.component-spirit-card-no-polygon {
+  padding: 2.5rem 0 3.3rem;
+}
+
+.metafield-rich_text_field {
+  /* text-align: center;
+  font-weight: 100 !important; */
+}
+
+.metafield-rich_text_field ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #ffffff;
+  opacity: 0.2;
+  border-radius: 50%;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-dot.bg-opacity-100 {
+  opacity: 0.9;
+  background-color: #fefefe;
+}
+
+.swiper {
+  height: 100%;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #1c1c1c !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 25px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #fefefe !important;
+}
+
+select#product-variant,
+input#quantity {
+  background-color: #fcfcfc;
+}
+
+/* Hidden state */
+.notification-hidden {
+  display: none;
+  opacity: 0;
+}
+
+/* Visible state */
+.notification-show {
+  display: flex;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.notification-hidden {
+  display: none;
+}
+
+.jdgm-rev__title {
+  font-weight: 500 !important;
+}
+
+.jdgm-write-rev-link {
+  font-weight: 500 !important;
+  color: #f7f7f5 !important;
+}
+
+.jdgm-curt {
+  color: black !important;
+  font-size: 100% !important;
+}
+
+/* Ensure both children grow together but first child is constrained */
+.flex-row > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Allow both children to grow equally */
+}
+
+/* Prevent the first child from exceeding the height of the second child */
+.flex-row > div:first-child {
+  max-height: 100%; /* Constrain height to the second child */
+  overflow: hidden; /* Hide overflow content if necessary */
+}
+
+.accordion-title {
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+.accordion-item.active .accordion-content {
+  display: block;
+  max-height: 200px; /* Adjust as needed or set a large value to accommodate content */
+}
+
+/* .accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.1s ease-out;
+} */
+
+/* Initially hide the second button */
+.show-after-viewport-height {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Show the button when it has the 'visible' class */
+.show-after-viewport-height.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#shopify-pc__banner {
+  display: none !important;
+}
+
+.active-btn-int-comp {
+  font-weight: 900;
+}
+
+.active-btn-int-comp::before,
+.active-btn-int-comp::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.active-btn-int-comp::before {
+  background-image: url('{{ "opius-icon-3.svg" | asset_url }}');
+  left: -20px;
+  background-color: black;
+  top: 4px;
+  transform: rotate(45deg);
+}
+
+.active-btn-int-comp::after {
+  background-image: url('{{ "opius-icon-3.svg" | asset_url }}');
+  right: -20px;
+  background-color: black;
+  top: 4px;
+  transform: rotate(45deg);
+}
+
+/* @media (min-width: 768px) {
+  .spirit-card-var:nth-child(4n + 1),
+  .spirit-card-var:nth-child(4n + 2) {
+    order: 1;
+  }
+  .spirit-card-wheel:nth-child(4n + 3),
+  .spirit-card-wheel:nth-child(4n + 4) {
+    order: 2;
+  }
+} */
+
+@media (min-width: 1280px) {
+  /* Desktop (xl) */
+  .spirit-card-var {
+    order: 1; /* All var components in row 1 */
+  }
+  .spirit-card-wheel {
+    order: 2; /* All wheel components in row 2 */
+  }
+}

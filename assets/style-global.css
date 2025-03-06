@@ -1,0 +1,17 @@
+/* assets/global.css */
+
+@import url("application.css");
+/* don't use style prefix for application.css, since it's rebuild everytime on safe */
+@import url("style-variables.css");
+@import url("style-typography.css");
+@import url("style-buttons.css");
+@import url("style-custom.css");
+
+/* @import url("application.css?v={% now 'U' %}");
+@import url("style-variables.css?v={% now 'U' %}");
+@import url("style-fonts.css?v={% now 'U' %}");
+@import url("style-typography.css?v={% now 'U' %}");
+@import url("style-buttons.css?v={% now 'U' %}");
+@import url("style-custom.css?v={% now 'U' %}"); */
+
+/* Add more CSS imports as needed */

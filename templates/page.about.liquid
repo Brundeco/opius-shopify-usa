@@ -1,0 +1,174 @@
+{% comment %} {% render 'preloader-short' %} {% endcomment %}
+
+{% for block in shop.metaobjects.our_story.values %}
+  <div class="wrap bg-black pt-28 lg:pt-36">
+    <h1 class="title-italic title-italic mb-20 text-center text-opiusBeige 2xl:mr-auto">{{ block.page_title }}</h1>
+
+    <video loop playsinline autoplay controls muted class="w-full portrait-video" style="display: none;">
+      <source src="{{ block.video_portrait | file_url }}" type="video/mp4">
+    </video>
+
+    <div class="flex max-w-screen-xl mx-auto">
+      <video loop playsinline autoplay controls muted class="w-full landscape-video" style="display: none;">
+        <source src="{{ block.video_landscape | file_url }}" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="wrap mx-auto bg-black">
+    <div class=" mx-auto max-w-3xl py-32 text-center">
+      {% render 'primary-title', text: block.title_1, styles: 'text-opiusBeige' %}
+    </div>
+
+    <div class=" mx-auto grid max-w-screen-2xl gap-14">
+      {% for about_entry in block.title_text_video_block.value | json limit:2 %}
+        {% assign video_url = about_entry.video | file_url %}
+        {% render 'story-paragraph', title: about_entry.title, text: about_entry.text, video: video_url %}
+      {% endfor %}
+    </div>
+
+    <div class=" mx-auto max-w-3xl py-32 text-center">
+      {% render 'primary-title', text: block.title_2, styles: 'text-opiusBeige' %}
+    </div>
+
+    <div class=" mx-auto grid max-w-screen-2xl gap-14">
+      {% for about_entry in block.title_text_video_block.value | json offset:2 %}
+        {% assign video_url = about_entry.video | file_url %}
+        {% render 'story-paragraph', title: about_entry.title, text: about_entry.text, video: video_url %}
+      {% endfor %}
+    </div>
+
+    <div class=" mx-auto max-w-xl pb-10 pt-32 text-center">
+      {% render 'primary-title', text: block.title_3, styles: 'text-opiusBeige' %}
+    </div>
+
+    <div class="mx-auto flex max-w-screen-2xl flex-col items-center justify-center gap-10">
+      <div class=" flex w-full max-w-2xl flex-col items-center justify-center gap-10 lg:mt-10">
+        {% for phase_entry in block.four_phases.value | json %}
+          <div class="flex items-start gap-4">
+            <div class="flex flex-col items-center justify-center gap-y-2">
+              {% assign image_url = phase_entry.image | file_url %}
+              <img src="{{ image_url}}" class=" max-w-16" width="" height="">
+              <div class="strapi-formatted text-opiusBeige text-center">
+                {{ phase_entry.text }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        <div class="mb-0 flex lg:mb-12 lg:mt-6">
+          <div class="opius-button">
+            <a href="/pages/shop" class="front primary light flex items-center justify-center"> Discover Opius </a>
+            <div class="back primary light"></div>
+          </div>
+        </div>
+      </div>
+      <div class=" w-full">
+        <video
+          loop
+          playsinline
+          autoplay
+          muted
+          class=" w-full"
+        >
+          <source
+            src="https://storage.googleapis.com/strapi-hosting-cd134.appspot.com/Video/our_roots_compressed_e07ebe36c0/our_roots_compressed_e07ebe36c0.mp4"
+            type="video/mp4"
+          >
+        </video>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-16 hidden max-w-screen-2xl gap-4 lg:mt-24 lg:grid lg:grid-cols-12">
+      <img
+        width=""
+        height=""
+        src="{{ 'fugazi-02.jpg' | asset_url  }}"
+        alt="{{ product.title }}"
+        class="item-image col-span-12 h-full max-h-[45vh] w-full object-cover lg:col-span-3"
+      >
+      <img
+        width=""
+        height=""
+        src="{{ 'bottle.webp' | asset_url  }}"
+        alt="{{ product.title }}"
+        class="item-image col-span-12 h-full max-h-[45vh] w-full object-cover lg:col-span-6"
+      >
+      <img
+        width=""
+        height=""
+        src="{{ 'diepgang.jpg' | asset_url  }}"
+        alt="{{ product.title }}"
+        class="item-image col-span-12 hidden h-full max-h-[45vh] w-full object-cover lg:col-span-3 lg:block"
+      >
+    </div>
+  </div>
+{% endfor %}
+
+<!-- JavaScript to toggle video display based on the device mode -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var portraitVideo = document.querySelector('.portrait-video');
+    var landscapeVideo = document.querySelector('.landscape-video');
+    var deviceMode = document.documentElement.getAttribute('data-device-mode');
+
+    if (deviceMode === 'portrait') {
+      portraitVideo.style.display = 'block';
+      portraitVideo.muted = false; // Unmute the visible video
+      landscapeVideo.style.display = 'none';
+      landscapeVideo.muted = true; // Mute the hidden video
+    } else {
+      landscapeVideo.style.display = 'block';
+      landscapeVideo.muted = false; // Unmute the visible video
+      portraitVideo.style.display = 'none';
+      portraitVideo.muted = true; // Mute the hidden video
+    }
+  });
+</script>
+
+<script>
+  // Function to detect device mode (portrait or landscape)
+  function detectDeviceMode() {
+    if (window.innerHeight > window.innerWidth) {
+      document.documentElement.setAttribute('data-device-mode', 'portrait');
+    } else {
+      document.documentElement.setAttribute('data-device-mode', 'landscape');
+    }
+  }
+
+  // Run on initial load
+  detectDeviceMode();
+
+  // Run when the window is resized
+  window.addEventListener('resize', detectDeviceMode);
+</script>
+
+<script>
+  var jsonData = {
+    items: [
+      {
+        text: 'Nigredo, or blackness, is referred to as a first step in the pathway to the Elixir of Life, all ingredients are cleansed and processed extensively to a uniform dark matter. This phase, which is symbolized by the raven, became a metaphor for the confrontation with our inner darkness',
+      },
+      {
+        text: 'Following the Nigredo stage, the alchemist performed a purification process in Albedo (= whiteness), the washing away of impurities. Albedo is symbolised by the white queen, and has as goal to bring light into in the darkness, to awaken once’s soul.',
+      },
+      {
+        text: "The third Amaro or Yellow stage, was referred to by alchemists as the transmutation of silver into gold or the philosophical “rise of one’s internal sunlight”. This is considered as a phase in which a person's soul has become wise. Alchemists used the wise old man as a symbol for this process.",
+      },
+      {
+        text: 'For the creation of the Elixir of Life, legend has it the three previous phases should be followed to be granted access to the fourth and last, Rubedo, phase...',
+      },
+    ],
+  };
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    for (var i = 0; i <= 3; i++) {
+      var textElement = document.getElementById('text-' + i);
+      if (jsonData.items[i]) {
+        textElement.textContent = jsonData.items[i].text;
+      }
+    }
+  });
+</script>

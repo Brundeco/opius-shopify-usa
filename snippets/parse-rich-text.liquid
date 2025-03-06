@@ -1,0 +1,17 @@
+{% assign rich_text_content = cocktail.method.value %}
+{% if rich_text_content != blank %}
+  {% assign rich_text_json = rich_text_content | json_parse %}
+  {% for child in rich_text_json.children %}
+    {% if child.type == 'paragraph' %}
+      <p>
+        {% for text_child in child.children %}
+          {% if text_child.type == 'text' %}
+            {{ text_child.value }}
+          {% endif %}
+        {% endfor %}
+      </p>
+    {% endif %}
+  {% endfor %}
+{% else %}
+  <p>No method information available.</p>
+{% endif %}

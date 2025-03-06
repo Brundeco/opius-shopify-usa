@@ -1,0 +1,16 @@
+<a href="/pages/cocktails/{{ cocktail.system.handle }}">
+  <div class="group relative flex h-full w-full cursor-pointer items-start justify-center overflow-hidden">
+    <img
+      {% comment %} src="{{ 'vonk-amaro.jpg' | asset_url}}" {% endcomment %}
+      src="{{ cocktail.hero_image | img_url: 'master' }}"
+      width=""
+      height=""
+      alt="Close-up of a cocktail"
+      class=" h-full w-full object-cover duration-300 group-hover:scale-110"
+    >
+    <h3 class="absolute mt-16 text-center text-xl font-normal uppercase tracking-widest duration-300 group-hover:translate-y-8 lg:text-2xl text-cardTitle">
+      <span class=" px-2">{{ cocktail.title }}</span>
+      {% comment %} <span class=" px-2">{{ cocktail.flavor.value }} </span> {% endcomment %}
+    </h3>
+  </div>
+</a>

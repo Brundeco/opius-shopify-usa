@@ -1,0 +1,115 @@
+{% render 'preloader' %}
+
+{{ content_for_index }}
+
+<section class="relative">
+  {% render 'video' %}
+  <div class="absolute inset-0 flex h-full w-full items-center justify-between text-opiusBeige">
+    <p class="title-vertical left pr-3.5 text-xs lg:pr-10 lg:text-sm">Small batch</p>
+    <h1 class="title-italic text-center">
+      Extraordinary <br>
+      non-alcoholic <br>
+      elixirs
+    </h1>
+    <p class="title-vertical pr-3.5 text-xs lg:pr-10 lg:text-sm">Handcrafted in Belgium</p>
+  </div>
+</section>
+
+{% assign spirits_collection = collections.spirits %}
+
+<div class="wrap my-24">
+  <div class="flex items-center justify-center">
+    <h4 class="title-italic">
+      Discover our <br>
+      spirits
+    </h4>
+  </div>
+  <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+    {% for product in spirits_collection.products %}
+      {% render 'spirit-card', product: product %}
+    {% endfor %}
+  </div>
+</div>
+
+<section class="relative mx-auto mb-12 lg:mb-20 flex w-full max-w-screen-2xl flex-col items-start px-4 lg:px-8">
+  <div class="relative mx-auto flex flex-col items-center justify-center ">
+    <h4 class="title-italic !mb-16 text-center">
+      In alchemy <br>
+      veritas
+    </h4>
+    <div class="flex flex-col lg:flex-row justify-center items-center gap-10">
+      <div class="mx-auto flex justify-center">
+        <video
+          loop="true"
+          playsInline="true"
+          autoPlay="true"
+          muted="true"
+          src="{{ 'alchemy_veritas.mp4' | asset_url }}"
+          class="w-full max-w-2xl"
+        ></video>
+      </div>
+      <div class="flex flex-col justify-center items-center">
+        <p class=" max-w-lg text-center">
+          Opius originates from secret techniques used in the world of alchemy. From reviving old lost methods and
+          deciphering ancient manuscripts.
+          <br>
+          <br>
+          Mystical craftsmanship resulted in a unique method, retrieving primal essences from botanicals believed by
+          alchemists to stimulate the mind and body.
+        </p>
+        <div class="opius-button mt-10">
+          <a href="/pages/our-story" class="front primary basic flex items-center justify-center">Full story</a>
+          <div class="back primary basic"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="relative mx-auto mb-12 lg:mb-20 flex w-full max-w-screen-2xl flex-col items-start px-4 lg:px-8 mt-32">
+  <div class="relative mx-auto flex flex-col items-center justify-center ">
+    <h4 class="title-italic mb-8 !lg:mb-16 text-center">
+      5 things <br>
+      to know
+    </h4>
+    {% render 'things-to-know' %}
+  </div>
+</section>
+
+{% render 'carousel-bartenders' %}
+
+<div class="wrap bg-black pt-20">
+  <div class=" max-w-screen-2xl mx-auto">
+    {% for block in shop.metaobjects.contact_page.values %}
+      {% render 'logo-grid-var', heading: 'Top rated by', logos_field: block.top_rated_by_logos %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="wrap pb-10 lg:pb-24 bg-black pt-24">
+  <div class="flex items-center justify-center">
+    <h4 class="title-italic text-opiusBeige !mb-16 text-center">
+      Our perfect <br>
+      serves
+    </h4>
+  </div>
+  <div class="grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
+    {% for cocktail in shop.metaobjects.cocktail.values %}
+      {% if cocktail.perfect_serve.value == true %}
+        <div class="item h-full w-full">
+          {% render 'cocktail-card', cocktail: cocktail %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="wrap">
+    <div class=" mx-auto max-w-xl text-center">
+      <div class="opius-button mx-auto mt-12 lg:mt-20">
+        <a href="/pages/cocktails" class="front primary light flex items-center justify-center">Recipes here</a>
+        <div class="back primary light"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render 'cart-notification' %}

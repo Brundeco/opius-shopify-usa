@@ -1,0 +1,263 @@
+.opius-button a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.opius-button {
+  width: 170px;
+  height: 50px;
+  position: relative;
+}
+
+.opius-button .front {
+  text-align: center;
+  width: 97%;
+  height: 90%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.opius-button .front.primary.amaro {
+  border: 1px solid var(--opius-amaro-accent);
+  background-color: var(--theme-yellow);
+  color: var(--opius-amaro-accent);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.amaro:hover,
+.opius-button .front.primary.amaro:focus,
+.opius-button .front.primary.amaro:active {
+  background-color: var(--opius-amaro-accent);
+  color: var(--theme-yellow);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.albedo {
+  border: 1px solid #c5ebf4;
+  background-color: #76a1b4;
+  color: #c5ebf4;
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.albedo:hover,
+.opius-button .front.primary.albedo:focus,
+.opius-button .front.primary.albedo:active {
+  background-color: #c5ebf4;
+  color: #76a1b4;
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.nigredo {
+  border: 1px solid var(--opius-nigredo-accent);
+  background-color: var(--theme-deep-green);
+  color: var(--opius-nigredo-accent);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.nigredo:hover,
+.opius-button .front.primary.nigredo:focus,
+.opius-button .front.primary.nigredo:active {
+  background-color: var(--opius-nigredo-accent);
+  color: var(--theme-deep-green);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.rubedo {
+  border: 1px solid var(--opius-rubedo-accent);
+  background-color: var(--theme-red);
+  color: var(--opius-rubedo-accent);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.rubedo:hover,
+.opius-button .front.primary.rubedo:focus,
+.opius-button .front.primary.rubedo:active {
+  background-color: var(--opius-rubedo-accent);
+  color: var(--theme-red);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.basic {
+  border: 1px solid var(--base-black);
+  background-color: rgb(249, 250, 251);
+  color: var(--base-black);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.basic:hover,
+.opius-button .front.primary.basic:focus,
+.opius-button .front.primary.basic:active {
+  background-color: var(--base-black);
+  color: rgb(249, 250, 251);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.light {
+  border: 1px solid #bfbbad;
+  background-color: black;
+  color: #bfbbad;
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.light:hover,
+.opius-button .front.primary.light:focus,
+.opius-button .front.primary.light:active {
+  background-color: #bfbbad;
+  color: black;
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.basic-var {
+  border: 1px solid var(--base-black);
+  background-color: var(--base-black);
+  color: rgb(228, 228, 228);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.primary.basic-var:hover,
+.opius-button .front.primary.basic-var:focus,
+.opius-button .front.primary.basic-var:active {
+  background-color: var(--off-white);
+  color: var(--base-black);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.secondary.amaro {
+  border: 1px solid var(--opius-amaro-accent);
+  background-color: var(--opius-amaro-accent);
+  color: var(--theme-yellow);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.secondary.amaro:hover,
+.opius-button .front.secondary.amaro:focus,
+.opius-button .front.secondary.amaro:active {
+  background-color: var(--theme-yellow);
+  color: var(--opius-amaro-accent);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.secondary.albedo {
+  border: 1px solid #c5ebf4;
+  background-color: #c5ebf4;
+  color: #76a1b4;
+  transition: var(--transition-one);
+}
+
+.opius-button .front.secondary.albedo:hover,
+.opius-button .front.secondary.albedo:focus,
+.opius-button .front.secondary.albedo:active {
+  background-color: #76a1b4;
+  color: #c5ebf4;
+  transition: var(--transition-one);
+}
+
+.opius-button .front.secondary.nigredo {
+  border: 1px solid var(--opius-rubedo-accent);
+  background-color: var(--opius-rubedo-accent);
+  color: var(--theme-red);
+  transition: var(--transition-one);
+}
+
+.opius-button .front.secondary.nigredo:hover,
+.opius-button .front.secondary.nigredo:focus,
+.opius-button .front.secondary.nigredo:active {
+  background-color: var(--theme-red);
+  color: var(--opius-rubedo-accent);
+  transition: var(--transition-one);
+}
+
+.opius-button .back {
+  width: 97%;
+  height: 90%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.opius-button .back.primary.amaro {
+  border: 1px solid var(--opius-amaro-accent);
+}
+
+.opius-button .back.primary.albedo {
+  border: 1px solid #c5ebf4;
+}
+
+.opius-button .back.primary.nigredo {
+  border: 1px solid var(--opius-nigredo-accent);
+}
+
+.opius-button .back.primary.rubedo {
+  border: 1px solid var(--opius-rubedo-accent);
+}
+
+.opius-button .back.primary.basic {
+  border: 1px solid var(--base-black);
+}
+
+.opius-button .back.primary.light {
+  border: 1px solid #bfbbad;
+}
+
+.cart-button {
+  position: fixed;
+  z-index: 49;
+  right: 1rem;
+  bottom: 2rem;
+  background-color: rgb(17, 17, 17);
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-button:hover {
+  background-color: var(--opius-amaro-accent);
+  transition: 0.2s ease-in-out;
+}
+
+.cart-button:hover svg {
+  color: black;
+  transition: 0.2s ease-in-out;
+}
+
+@media (min-width: 1024px) {
+  /* 'lg' breakpoint */
+  .cart-button {
+    right: 2rem;
+    bottom: 2rem;
+    width: 65px;
+    height: 65px;
+  }
+}
+
+.cart-button svg {
+  font-size: 1.3rem;
+  color: rgb(187, 187, 187);
+  transition: 0.2s ease-in-out;
+}
+
+.checkout-button {
+  transition: 0.2s ease-in-out;
+}
+
+.checkout-button:hover {
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  /* 'md' breakpoint */
+  .opius-button {
+    width: 200px;
+  }
+}

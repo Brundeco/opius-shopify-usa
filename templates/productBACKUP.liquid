@@ -1,0 +1,312 @@
+{% comment %} {% render 'preloader-short' %} {% endcomment %}
+
+{% render 'marquee' %}
+
+<div class="pt-20 xl:pt-36">
+  {% comment %} <div class="px-4 lg:px-8 2xl:px-16"> {% endcomment %}
+  <div class="wrap">
+    <div class="flex flex-col gap-5 lg:gap-5 lg:flex-row">
+
+      {% render 'carousel-shop' %}
+
+
+      <div class="flex lg:w-6/12 flex-col">
+        <div class="flex flex-col">
+          <h3 class="text-xl font-medium uppercase md:text-3xl">{{ product.title }}</h3>
+          <form action="/cart/add" method="post" enctype="multipart/form-data" class=" mt-1 lg:mt-4">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            {% if product.variants.size > 1 %}
+              <select id="product-variant" name="id" class="border border-black py-1.5 px-2 mb-8">
+                {% for variant in product.variants %}
+                  <option
+                    value="{{ variant.id }}"
+                    {% unless variant.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    {{ variant.title }}
+                    {% unless variant.available %}(Sold Out){% endunless %}
+                  </option>
+                {% endfor %}
+              </select>
+            {% endif %}
+
+            <p class="text-xl font-medium uppercase mb-3">{{ product.price || money }}</p>
+
+            <a href="#target-section">
+              <div class="flex gap-1 mb-5 lg:mb-7">
+                <i class="fa-sharp fa-solid fa-star text-xs"></i>
+                <i class="fa-sharp fa-solid fa-star text-xs"></i>
+                <i class="fa-sharp fa-solid fa-star text-xs"></i>
+                <i class="fa-sharp fa-solid fa-star text-xs"></i>
+                <i class="fa-sharp fa-solid fa-star text-xs"></i>
+              </div>
+            </a>
+
+            <div class="flex min-h-6 w-full max-w-96 flex-col">
+              <div class="flex gap-4">
+                <div class="flex mb-4 border border-black px-2 py-1 w-20 h-11">
+                  <button type="button" class="decrement">-</button>
+                  <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    class="mx-2 w-8 text-center"
+                  >
+                  <button type="button" class="increment">+</button>
+                </div>
+                <div class="flex w-full reference-button">
+                  <div class="opius-button !w-full">
+                    <button type="submit">
+                      <p class="front primary basic-var flex items-center justify-center">Add to Cart</p>
+                    </button>
+                    <div class="back primary basic"></div>
+                  </div>
+                </div>
+
+                <div class="flex fixed right-4 bottom-4 lg:hidden show-after-viewport-height z-[499]">
+                  <div class="opius-button !w-[90vw]">
+                    <button type="submit">
+                      <p class="front primary basic-var flex items-center justify-center">Add to Cart</p>
+                    </button>
+                    <div class="back primary basic"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col justify-start mb-4">
+                <div class="flex border-opacity-25 flex-col gap-3 py-3 px-4 lg:px-6 text-sm bg-gray-100 ">
+                  <p class="flex gap-2 items-center">
+                    <img
+                      width=""
+                      height=""
+                      src="{{ 'opius-icon-1.svg' | asset_url  }}"
+                      alt="{{ product.title }}"
+                      class=" w-4 inline-block"
+                    >
+                    <span class="">N°1 choice of chefs & bartenders</span>
+                  </p>
+                  <p class="flex gap-2 items-center">
+                    <img
+                      width=""
+                      height=""
+                      src="{{ 'opius-icon-2.svg' | asset_url  }}"
+                      alt="{{ product.title }}"
+                      class=" w-4 inline-block"
+                    >
+                    <span class="">Secret recipe: 100% crafsmanship</span>
+                  </p>
+                  <p class="flex gap-2 items-center">
+                    <img
+                      width=""
+                      height=""
+                      src="{{ 'opius-icon-4.svg' | asset_url  }}"
+                      alt="{{ product.title }}"
+                      class=" w-4 inline-block"
+                    >
+                    <span class="">Intense & gastronomic flavours </span>
+                  </p>
+                  <p class="flex gap-2 items-center">
+                    <img
+                      width=""
+                      height=""
+                      src="{{ 'opius-icon-3.svg' | asset_url  }}"
+                      alt="{{ product.title }}"
+                      class=" w-4 inline-block"
+                    >
+                    <span class="">Social elixir: activates GABA-receptors </span>
+                  </p>
+                  <p class="flex gap-2 items-center">
+                    <img
+                      width=""
+                      height=""
+                      src="{{ 'opius-icon-5.svg' | asset_url  }}"
+                      alt="{{ product.title }}"
+                      class=" w-4 inline-block"
+                    >
+                    <span class="">Handmade in Belgium </span>
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-col justify-start mb-4">
+                <div class="flex flex-col gap-1 py-3 px-6 text-sm bg-gray-100">
+                  <p class="">• <span class="">Buy 2 = Free shipping</span></p>
+                  <p class="">• <span class="">Next day delivery = all orders before 16h</span></p>
+                </div>
+              </div>
+            </div>
+            <div class=" max-w-2xl mt-4 ">
+              {% if product.metafields.custom.key_info %}
+                {{ product.metafields.custom.key_info | metafield_tag }}
+              {% else %}
+                <div class="shopify-text mt-4 mb-8">{{ product.description }}</div>
+              {% endif %}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} </div> {% endcomment %}
+
+{% if product.metafields.custom.key_info %}
+  <div class="wrap mt-10">
+    <div class="border border-black border-opacity-20">
+      <div class="flex flex-col py-10 justify-center items-center max-w-5xl mx-auto">
+        <h3 class=" font-medium uppercase text-3xl text-left w-full mb-4">More info</h3>
+        <div class="shopify-text mt-4 mb-8">{{ product.description }}</div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="wrap mt-10">
+  {% render 'carousel-bartenders' %}
+</div>
+
+{% if product.metafields.custom.testimonial_video %}
+  <div class="wrap">
+    <div class="bg-gray-50 mt-4 lg:mt-10 wrap">
+      <h3 class=" text-2xl lg:text-3xl font-normal uppercase text-center pt-8 lg:pt-20 pb-6 lg:pb-10">
+        What clients say ...
+      </h3>
+      <div class="testimonial-video-container max-w-screen-xl mx-auto">
+        <video
+          controls
+          preload="auto"
+          width="100%"
+          class="testimonial-video"
+        >
+          <source
+            src="{{ product.metafields.custom.testimonial_video | file_url }}"
+            type="video/mp4"
+          >
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+  <div id="target-section" class="wrap">
+    <div class=" bg-gray-50 w-full flex justify-center items-center pt-16 py-7">
+      <!-- Start of Judge.me code -->
+      <div style="clear:both"></div>
+      <div
+        id="judgeme_product_reviews"
+        class="jdgm-widget jdgm-review-widget"
+        data-product-title="{{ product.title | escape }}"
+        data-id="{{ product.id }}"
+        data-auto-install="false"
+      >
+        {{ product.metafields.judgeme.widget }}
+      </div>
+      <!-- End of Judge.me code -->
+    </div>
+  </div>
+{% else %}
+  <div id="target-section" class="wrap mt-16">
+    <div class=" bg-gray-50 w-full flex justify-center items-center pt-16 py-7">
+      <!-- Start of Judge.me code -->
+      <div style="clear:both"></div>
+      <div
+        id="judgeme_product_reviews"
+        class="jdgm-widget jdgm-review-widget"
+        data-product-title="{{ product.title | escape }}"
+        data-id="{{ product.id }}"
+        data-auto-install="false"
+      >
+        {{ product.metafields.judgeme.widget }}
+      </div>
+      <!-- End of Judge.me code -->
+    </div>
+  </div>
+{% endif %}
+
+{% assign all_products = collections['opius-webshop'].products | sort: 'updated_at' | reverse %}
+{% assign current_product = product.id %}
+{% assign product_count = 0 %}
+
+<div class="wrap">
+  <div class="mx-auto">
+    <div class="mt-10">
+      <div class="">
+        <h3 class="mb-6 mt-14 text-2xl lg:text-3xl font-normal uppercase">You may also like</h3>
+      </div>
+      <div class=" mb-16 lg:mb-24 grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
+        {% for product in all_products %}
+          {% if product.id != current_product and product_count < 5 %}
+            <div class="{% if product_count >= 2 %}hidden lg:block{% endif %}">
+              {% render 'product-card', product: product %}
+            </div>
+            {% assign product_count = product_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} {% render 'carousel-bartenders' %} {% endcomment %}
+
+<script>
+  // JavaScript for handling increment and decrement of quantity
+  document.querySelector('.increment').addEventListener('click', function () {
+    let quantityInput = document.getElementById('quantity');
+    let currentValue = parseInt(quantityInput.value);
+    if (!isNaN(currentValue)) {
+      quantityInput.value = currentValue + 1;
+    }
+  });
+
+  document.querySelector('.decrement').addEventListener('click', function () {
+    let quantityInput = document.getElementById('quantity');
+    let currentValue = parseInt(quantityInput.value);
+    if (!isNaN(currentValue) && currentValue > 1) {
+      quantityInput.value = currentValue - 1;
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Select the reference button and the second button
+    const referenceButton = document.querySelector('.reference-button');
+    const secondaryButton = document.querySelector('.show-after-viewport-height');
+
+    // Ensure elements exist to avoid runtime errors
+    if (referenceButton && secondaryButton) {
+      // Create an IntersectionObserver
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) {
+            // If reference button is out of viewport, show secondary button
+            secondaryButton.classList.add('visible');
+          } else {
+            // If reference button is visible, hide secondary button
+            secondaryButton.classList.remove('visible');
+          }
+        },
+        { threshold: 0 } // Trigger when any part of the reference button is visible
+      );
+
+      // Observe the reference button
+      observer.observe(referenceButton);
+    }
+  });
+</script>
+
+<style>
+  /* Initially hide the second button */
+  .show-after-viewport-height {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Show the button when it has the 'visible' class */
+  .show-after-viewport-height.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>

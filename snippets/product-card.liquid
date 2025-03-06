@@ -1,0 +1,92 @@
+<div
+  className="product-item"
+  data-aos-delay="{{ index | times: 10 }}"
+  data-aos="fade-up"
+  data-aos-duration="800"
+>
+  <div class="group relative flex flex-col gap-2">
+    <a href="{{ product.url }}" class="relative aspect-square w-full overflow-hidden ">
+      <img
+        width=""
+        height=""
+        src="{{ product.featured_image | img_url: 'master' }}"
+        alt="{{ product.title }}"
+        class="h-full w-full object-cover duration-500 group-hover:scale-105"
+      >
+    </a>
+    <div class="flex flex-col items-start justify-between gap-3 text-sm font-normal lg:flex-row lg:pt-2 lg:text-base">
+      <div class="flex w-full flex-col justify-between">
+        <p>{{ product.title }}</p>
+        <p class="mt-1 font-medium lg:mt-0">{{ product.price | money }}</p>
+      </div>
+      <form method="post" action="/cart/add" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+        <button
+          class="add-to-cart-btn flex w-full items-center justify-center whitespace-nowrap border border-black border-opacity-50 px-4 py-2 duration-300 hover:border-opiusBeige hover:bg-opiusBeige hover:bg-opacity-90 hover:text-black lg:w-auto"
+          type="button"
+        >
+          Add to cart
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    const notification = document.getElementById('cart-notification');
+    const cartCountElement = document.getElementById('cart-count');
+    const closeCart = document.getElementById('close-cart');
+
+    function showNotification() {
+      notification.classList.remove('notification-hidden');
+      notification.classList.add('show');
+    }
+
+    function closeNotification() {
+      notification.classList.remove('notification-show');
+      notification.classList.add('notification-hidden');
+    }
+
+    closeCart.addEventListener('click', closeNotification);
+
+    function updateCartCount() {
+      fetch('/cart.js')
+        .then((response) => response.json())
+        .then((data) => {
+          cartCountElement.textContent = data.item_count;
+        })
+        .catch((error) => {
+          console.error('Error fetching cart data:', error);
+        });
+    }
+
+    // Use onclick to avoid duplicate event listeners
+    addToCartButtons.forEach((button) => {
+      button.onclick = () => {
+        const form = button.closest('form');
+        const formData = new FormData(form);
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok');
+          })
+          .then((data) => {
+            console.log('Item added to cart:', data);
+            showNotification();
+            updateCartCount(); // Update cart count dynamically
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      };
+    });
+  });
+</script>

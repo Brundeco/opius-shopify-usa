@@ -1,0 +1,131 @@
+<!doctype html>
+<html class="no-js supports-no-cookies">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {{ content_for_header }}
+    {{ 'style-fonts.css' | asset_url | stylesheet_tag }}
+
+    <!-- Google Tag Manager -->
+    <!--
+      <script>
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+          j.async = true;
+          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+          f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5GTN25B');
+      </script>
+    -->
+    <!-- End Google Tag Manager -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css">
+    {{ 'style-global.css' | asset_url | stylesheet_tag }}
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="icon" href="{{ 'favicon.ico' | asset_url }}" type="image/png">
+
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
+    <!--
+      <script>
+        window.dataLayer = window.dataLayer || [];
+      </script>
+    -->
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <!--
+      <noscript
+        ><iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-5GTN25B"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe
+      ></noscript>
+    -->
+    <!-- End Google Tag Manager (noscript) -->
+
+    {% assign text_color = 'text-black' %}
+    {% assign path_to_logo = 'logo-dark.svg' %}
+    {% assign promo_banner = false %}
+    {% assign current_route = request.path %}
+
+    {% if current_route == '/' or current_route contains 'our-story' or current_route contains 'testimonials' or current_route contains 'contact' or (current_route contains 'cocktails' and current_route == '/pages/cocktails') %}
+      {% assign text_color = 'text-opiusBeige' %}
+      {% assign path_to_logo = 'logo-light.svg' %}
+    {% elsif current_route contains '/cocktails/' %}
+      {% assign text_color = 'text-black' %}
+      {% assign path_to_logo = 'logo-dark.svg' %}
+    {% elsif current_route contains 'shop' %}
+      {% assign text_color = 'text-black' %}
+      {% assign path_to_logo = 'logo-dark.svg' %}
+      {% assign promo_banner = true %}
+    {% elsif current_route contains 'cart' %}
+      {% assign text_color = 'text-black' %}
+      {% assign path_to_logo = 'logo-dark.svg' %}
+    {% elsif current_route contains 'contact' or current_route contains 'privacy' or current_route contains 'terms' %}
+      {% assign text_color = 'text-black' %}
+      {% assign path_to_logo = 'logo-dark.svg' %}
+      {% assign promo_banner = false %}
+    {% else %}
+      {% assign promo_banner = true %}
+    {% endif %}
+
+    {% render 'header', text_color: text_color, logo: path_to_logo, promo_banner: promo_banner %}
+    {% render 'header-mobile', logo: path_to_logo %}
+
+    <a
+      href="/cart"
+      class="fixed gap-2 z-[499] hidden lg:flex items-center rounded-full border-transparent bg-opiusDeepGreen uppercase tracking-tighter text-OpiusRubedoAccent duration-300 hover:bg-black hover:text-OpiusRubedoAccent right-9 px-6 py-1.5 text-lg {% if current_route contains 'shop' or current_route contains 'product' %} top-16 {% else %} top-7 {% endif %}"
+    >
+      <i class="fa-solid fa-cart-shopping" style="font-size: 16px;"></i>
+      <span id="cart-count" class=" ml-1 font-normal text-lg"> {{ cart.item_count }}</span>
+    </a>
+
+    {{ content_for_layout }}
+
+    {% render 'footer' %}
+
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" defer></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js" async></script>
+    <script src="{{ 'lenis.js' | asset_url }}" async></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Initialize AOS
+        AOS.init({
+          duration: 1000, // Animation duration in milliseconds
+          easing: 'ease-in-out', // Easing type
+          once: true, // Whether animation should happen only once
+        });
+      });
+    </script>
+    <!--
+      <script>
+        window.dataLayer.push({
+          event: 'page_view',
+          pagePath: '{{ request.path }}',
+          pageTitle: '{{ page_title }}',
+        });
+      </script>
+    -->
+  </body>
+</html>
+
+<script>
+  // Detect if running on localhost or Shopify's preview environment
+  if (window.location.includes('127.0.0.1') || (window.Shopify && Shopify.preview)) {
+    document.getElementById('shopify-pc__banner').style.display = 'none';
+  }
+
+  console.log(window.location);
+</script>

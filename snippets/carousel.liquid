@@ -1,0 +1,88 @@
+<div class="carousel-container mx-auto">
+  <div class="carousel">
+    <div class="carousel-slide active">
+      <video class="carousel-video" controls>
+        <source src="{{ 'alchemy_veritas.mp4' | asset_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="carousel-slide">
+      <video class="carousel-video" controls>
+        <source src="{{ 'alchemy_veritas.mp4' | asset_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="carousel-slide">
+      <video class="carousel-video" controls>
+        <source src="{{ 'alchemy_veritas.mp4' | asset_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <!-- Navigation Arrows -->
+  <button class="carousel-control prev" aria-label="Previous Video">
+    <span>&#10094;</span>
+  </button>
+  <button class="carousel-control next" aria-label="Next Video">
+    <span>&#10095;</span>
+  </button>
+
+  <!-- Dots Indicators -->
+  <div class="carousel-dots">
+    {% if video_1 %}
+      <span class="dot active" data-slide="0"></span>
+    {% endif %}
+    {% if video_2 %}
+      <span class="dot" data-slide="1"></span>
+    {% endif %}
+    {% if video_3 %}
+      <span class="dot" data-slide="2"></span>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
+
+    const showSlide = (index) => {
+      // Hide all slides
+      slides.forEach((slide) => slide.classList.remove('active'));
+      // Remove active class from all dots
+      dots.forEach((dot) => dot.classList.remove('active'));
+      // Show the selected slide
+      slides[index].classList.add('active');
+      // Highlight the current dot
+      dots[index].classList.add('active');
+    };
+
+    const nextSlide = () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    };
+
+    const prevSlide = () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    };
+
+    document.querySelector('.next').addEventListener('click', nextSlide);
+    document.querySelector('.prev').addEventListener('click', prevSlide);
+
+    // Dot navigation
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        showSlide(currentIndex);
+      });
+    });
+
+    // Auto Slide (Optional)
+    setInterval(nextSlide, 5000); // Change every 5 seconds
+  });
+</script>

@@ -1,0 +1,10 @@
+{% render 'preloader-short' %}
+
+{% assign privacy_policy = pages['privacy-policy'] %}
+
+<div class="wrap max-w-6xl m-auto pt-36 pb-20">
+  <div class="flex justify-center items-center flex-col gap-6">
+    <h1 class=" title-italic">{{ privacy_policy.title }}</h1>
+    <div>{{ privacy_policy.content | raw }}</div>
+  </div>
+</div>

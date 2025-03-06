@@ -1,0 +1,30 @@
+<div class="carousel-section">
+  {% render 'carousel',
+    video_1: section.settings.video_1,
+    video_2: section.settings.video_2,
+    video_3: section.settings.video_3
+  %}
+</div>
+
+{% schema %}
+{
+  "name": "Homepage Video Carousel",
+  "settings": [
+    {
+      "type": "url",
+      "id": "video_1",
+      "label": "Video 1 URL"
+    },
+    {
+      "type": "url",
+      "id": "video_2",
+      "label": "Video 2 URL"
+    },
+    {
+      "type": "url",
+      "id": "video_3",
+      "label": "Video 3 URL"
+    }
+  ]
+}
+{% endschema %}

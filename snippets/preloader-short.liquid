@@ -1,0 +1,31 @@
+<div
+  id="preloader-container"
+  class="gsap-container pointer-events-none fixed left-0 top-0 z-[500] flex h-full w-full items-center justify-center bg-black"
+>
+  <div class="stack container grid items-center justify-center">
+    <img
+      src="{{ 'logo-footer.svg' | asset_url }}"
+      class="item w-24 translate-y-8 justify-self-center opacity-0 lg:w-32"
+      alt="Logo"
+      width=""
+      height=""
+    >
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Animate items with GSAP
+    gsap.to('.item', { opacity: 1, translateY: 0, duration: 0.5 });
+
+    // Fade out the container after a delay
+    gsap.to('.gsap-container', {
+      opacity: 0,
+      delay: 1,
+      duration: 0.4,
+      onComplete: () => {
+        document.getElementById('preloader-container').style.display = 'none';
+      },
+    });
+  });
+</script>

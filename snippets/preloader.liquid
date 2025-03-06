@@ -1,0 +1,70 @@
+<div
+  id="preloader-container"
+  class="gsap-container pointer-events-none fixed left-0 top-0 z-[500] flex h-full w-full items-center justify-center bg-black"
+>
+  <div class="stack container grid items-center justify-center">
+    <img
+      src="{{ 'candle.png' | asset_url }}"
+      class="w-12 justify-self-center opacity-0 lg:w-20"
+      width=""
+      height=""
+      id="preloader-element-0"
+      alt="Candle"
+    >
+    <img
+      src="{{ 'tree.png' | asset_url }}"
+      class="w-12 justify-self-center opacity-0 lg:w-20"
+      width=""
+      height=""
+      id="preloader-element-2"
+      alt="Tree"
+    >
+    <img
+      src="{{ 'logo-footer.svg' | asset_url }}"
+      class="w-24 translate-y-8 justify-self-center opacity-0 lg:w-32"
+      width=""
+      height=""
+      id="preloader-element-3"
+      alt="Logo"
+    >
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const elements = [
+      document.getElementById('preloader-element-0'),
+      // document.getElementById('preloader-element-1'), // Uncomment if needed
+      document.getElementById('preloader-element-2'),
+      document.getElementById('preloader-element-3'),
+    ];
+
+    const container = document.getElementById('preloader-container');
+
+    // Initialize GSAP timeline
+    const timeline = gsap.timeline();
+
+    elements.forEach((element, index) => {
+      const fadeInDuration = 0.25;
+      const fadeOutDuration = 0.25;
+      const delay = 0;
+
+      if (index === elements.length - 1) {
+        timeline.to(element, { opacity: 1, duration: 0.45, translateY: 0, ease: 'power4.out' });
+        timeline.add(() => {}, '+=0.05');
+        timeline.to(element, { opacity: 0, duration: 0.25 });
+      } else {
+        timeline.to(element, { opacity: 1, duration: fadeInDuration });
+        timeline.to(element, { opacity: 0, duration: fadeOutDuration, delay: delay });
+      }
+    });
+
+    timeline.to(container, {
+      opacity: 0,
+      duration: 1,
+      onComplete: () => {
+        container.style.display = 'none'; // Hide the preloader after animation
+      },
+    });
+  });
+</script>

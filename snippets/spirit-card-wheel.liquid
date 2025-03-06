@@ -1,0 +1,36 @@
+<div class="wrap w-full pt-10 pb-10 !xl:pb-16 {{product.metafields.custom.title}}-bg-color flex flex-col justify-center items-center gap-4">
+  <p class="force-color-{{product.metafields.custom.title}} text-center uppercase max-w-[17rem] h-24">
+    {{ product.metafields.custom.ingredients_full }}
+  </p>
+  <img
+    width=""
+    height=""
+    src="{{ product.metafields.custom.flavour_wheel | img_url: 'master' }}"
+    alt="{{ product.title }}"
+    class=" w-[80%] lg:w-[65%] mt-8"
+  >
+  <p class=" mt-8 uppercase italic text-base font-medium text-{{product.metafields.custom.title}}-accent">
+    Perfect serve
+  </p>
+  {% comment %}
+    <div class=" text-sm text-center {% if product.metafields.custom.title == "nigredo" %} text-nigredo-accent {% else %}  text-black {% endif %}">
+      {{ product.metafields.custom.perfect_serve | metafield_tag }}
+    </div>
+  {% endcomment %}
+  <img
+    src="{{ product.metafields.custom.perfect_serve_image |  img_url: 'medium' }}"
+    alt="{{ product.title }}"
+    width=""
+    height=""
+  >
+
+  <div class="opius-button">
+    <a
+      href="/pages/cocktails"
+      class="front primary {{product.metafields.custom.title}}"
+    >
+      More recipes
+    </a>
+    <div class="back primary {{product.metafields.custom.title}}"></div>
+  </div>
+</div>

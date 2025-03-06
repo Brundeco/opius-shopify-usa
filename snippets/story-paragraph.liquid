@@ -1,0 +1,16 @@
+<section class="grid gap-10 lg:grid-cols-2">
+  <div class="w-full flex justify-end flex-col {% if odd_class == true %}lg:order-1{% else %}lg:order-1{% endif %}">
+    <h2 class="mb-4 text-center text-2xl font-medium uppercase tracking-wide text-opiusBeige lg:text-left">
+      {{ title }}
+    </h2>
+    <div class="strapi-formatted text-beige text-center text-[.93rem] font-light text-opiusBeige lg:text-left">
+      {{ text | escape }}
+    </div>
+  </div>
+
+  <div class="w-full {% if odd_class == true %}lg:order-0{% else %}lg:order-0{% endif %}">
+    <video loop="true" playsinline="true" autoplay="true" muted="true" class="w-full">
+      <source src="{{ video }}">
+    </video>
+  </div>
+</section>

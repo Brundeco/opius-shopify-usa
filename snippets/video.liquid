@@ -1,0 +1,27 @@
+<div class="border-l-none border-r-none relative mt-0 h-screen w-full">
+  <video id="hero-video" loop playsinline autoplay muted class="absolute left-0 top-0 h-screen w-screen object-cover">
+    <source id="video-source" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<script>
+  const portraitVideo = 'https://cdn.willowstudio.be/opius_hero.mp4';
+  const landscapeVideo = 'https://cdn.willowstudio.be/opius_hero.mp4';
+
+  function updateVideoSource() {
+    const videoElement = document.getElementById('hero-video');
+    const sourceElement = document.getElementById('video-source');
+
+    if (window.innerHeight > window.innerWidth) {
+      sourceElement.src = portraitVideo;
+    } else {
+      sourceElement.src = landscapeVideo;
+    }
+    videoElement.load();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    updateVideoSource();
+  });
+</script>

@@ -1,0 +1,134 @@
+{% assign current_route = request.path %}
+
+<div
+  class="fixed inset-0 z-[200] block lg:hidden js-nav-mobile pointer-events-none mix-blend-difference {% if current_route contains 'shop' or current_route contains 'product' %} mt-10 {% else %} mt-0 {% endif %}"
+  data-menu-open="false"
+>
+  <nav class="wrap absolute left-0 top-0 w-full grid grid-cols-3 py-4 lg:py-9 items-center pointer-events-auto">
+    <div class="box relative flex opacity-50 w-full h-full justify-self-start items-center">
+      <div class="pointer-events-auto absolute left-0 flex flex-col items-start justify-center gap-y-1.5 js-menu-toggle">
+        <div class="h-0.5 w-10 bg-opiusBeige duration-300 js-menu-line-1"></div>
+        <div class="h-0.5 w-10 bg-opiusBeige duration-300 js-menu-line-2"></div>
+        <div class="h-0.5 w-7 bg-opiusBeige duration-300 js-menu-line-3"></div>
+      </div>
+    </div>
+    <a href="{{ routes.root_url }}" class="box pointer-events-auto opacity-100 justify-self-center">
+      {% if template == 'index' %}
+        <img src="{{ 'logo-light.svg' | asset_url }}" alt="{{ shop.name }}" width="60" height="10" class="pt-2">
+      {% else %}
+        <img src="{{ 'logo-light.svg' | asset_url }}" alt="{{ shop.name }}" width="60" height="10" class="pt-2">
+      {% endif %}
+    </a>
+    <a
+      href="/cart"
+      class=" bg-black justify-self-end gap-1 top-6 right-4 z-[1100] flex lg:hidden items-center rounded-full border border-opiusBeige px-3 text-2xl uppercase tracking-tighter text-opiusBeige duration-300 hover:text-opiusBeige"
+    >
+      <i class="fa-solid fa-cart-shopping" style="font-size: 14px;"></i>
+      <span class=" ml-1 font-normal text-[18px]"> {{ cart.item_count }}</span>
+    </a>
+  </nav>
+  <div class="wrap hidden h-full flex-col items-center justify-center pb-10 pointer-events-none js-menu-content mix-blend-normal bgbl">
+    {% comment %}
+      <button class="link link--metis text-3xl font-medium uppercase text-opiusBeige hover:mb-2 js-products-button opacity-0">
+        <span>Products</span>
+      </button>
+    {% endcomment %}
+    <a
+      href="/pages/products"
+      class="link link--metis text-3xl font-medium uppercase text-opiusBeige hover:mb-2 opacity-0"
+    >
+      <span>Products</span>
+    </a>
+    <a
+      href="/pages/our-story"
+      class="link link--metis text-3xl font-medium uppercase text-opiusBeige hover:mb-2 opacity-0"
+    >
+      <span>Our Story</span>
+    </a>
+    <a
+      href="/pages/cocktails"
+      class="link link--metis text-3xl font-medium uppercase text-opiusBeige hover:mb-2 opacity-0"
+    >
+      <span>Cocktails</span>
+    </a>
+    <a
+      href="/pages/testimonials"
+      class="link link--metis text-3xl font-medium uppercase text-opiusBeige hover:mb-2 opacity-0"
+    >
+      <span>Testimonials</span>
+    </a>
+    <a
+      href="/pages/shop"
+      class="link link--metis text-3xl font-medium uppercase text-opiusBeige hover:mb-2 opacity-0"
+    >
+      <span>Shop</span>
+    </a>
+    <a
+      href="/pages/contact"
+      class="link link--metis text-3xl font-medium uppercase text-opiusBeige hover:mb-2 opacity-0"
+    >
+      <span>Contact</span>
+    </a>
+    <a href="/cart">
+      <button class="mt-14 flex items-center rounded-full bg-opiusBeige px-4 py-2 text-2xl font-medium uppercase text-black js-cart-button opacity-0 gap-0.5">
+        <i class="fa-solid fa-cart-shopping" style="font-size: 14px;"></i>
+        <span class="ml-1 text-base font-normal js-cart-count">({{ cart.item_count }})</span>
+      </button>
+    </a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const navMobile = document.querySelector('.js-nav-mobile');
+    const menuToggle = document.querySelector('.js-menu-toggle');
+    const menuContent = document.querySelector('.js-menu-content');
+    const menuLines = document.querySelectorAll('.js-menu-line-1, .js-menu-line-2, .js-menu-line-3');
+    const productsButton = document.querySelector('.js-products-button');
+    const cartButton = document.querySelector('.js-cart-button');
+    const cartCount = document.querySelector('.js-cart-count');
+
+    let isMenuOpen = false;
+    let yPosReached = false;
+
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
+      navMobile.dataset.menuOpen = isMenuOpen;
+
+      if (isMenuOpen) {
+        menuContent.style.display = 'flex';
+        setTimeout(() => {
+          menuContent.style.backgroundColor = 'rgba(0, 0, 0, 1)';
+          menuContent.style.pointerEvents = 'auto';
+          navMobile.style.mixBlendMode = 'normal';
+        }, 0);
+      } else {
+        menuContent.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+        menuContent.style.pointerEvents = 'none';
+        navMobile.style.mixBlendMode = 'difference';
+        setTimeout(() => {
+          menuContent.style.display = 'none';
+        }, 300);
+      }
+
+      menuLines[0].classList.toggle('w-8', isMenuOpen);
+      menuLines[0].classList.toggle('translate-y-2', isMenuOpen);
+      menuLines[0].classList.toggle('rotate-45', isMenuOpen);
+      menuLines[1].classList.toggle('w-8', isMenuOpen);
+      menuLines[1].classList.toggle('-rotate-45', isMenuOpen);
+      menuLines[2].classList.toggle('opacity-0', isMenuOpen);
+
+      const menuItems = menuContent.querySelectorAll('a, button');
+      menuItems.forEach((item) => {
+        item.style.opacity = isMenuOpen ? '1' : '0';
+        item.style.transitionDuration = isMenuOpen ? '1000ms' : '75ms';
+        item.style.pointerEvents = isMenuOpen ? 'auto' : 'none';
+      });
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+
+    gsap.to('.box', { opacity: 1, stagger: 0.1 });
+    gsap.to('.cart-button', { opacity: 1, duration: 0.4, delay: 0.7, translateY: 0 });
+  });
+</script>

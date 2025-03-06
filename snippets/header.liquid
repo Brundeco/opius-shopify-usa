@@ -1,0 +1,46 @@
+<header>
+  <div class="hide-on-scroll wrap fixed left-0 z-50 hidden justify-center pt-2 lg:flex {% if promo_banner %} top-10 {% else %} top-0 {% endif %}">
+    <div class="grid grid-cols-5 items-center gap-x-[7vw] py-5 font-normal uppercase {{ text_color }}">
+      {% assign links = linklists['main-menu'].links %}
+
+      <a href="/pages/products" class="justify-self-center">Products</a>
+
+      <div class="justify-self-center">
+        {{ links[0].title | link_to: links[0].url }}
+      </div>
+
+      <a href="/" class=" justify-self-center">
+        <img width="" height="" src="{{ logo | asset_url }}" alt="logo opius" class="max-w-[4rem]">
+      </a>
+
+      <div class="justify-self-center">
+        {{ links[1].title | link_to: links[1].url }}
+      </div>
+      <div class="justify-self-center">
+        {{ links[2].title | link_to: links[2].url }}
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let lastScrollTop = 0;
+    const header = document.querySelector('.hide-on-scroll');
+
+    header.style.transition = 'transform 0.3s ease-in-out';
+
+    window.addEventListener('scroll', function () {
+      let scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+      if (scrollTop > lastScrollTop) {
+        // Scrolling down
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        // Scrolling up
+        header.style.transform = 'translateY(0)';
+      }
+      lastScrollTop = scrollTop;
+    });
+  });
+</script>
