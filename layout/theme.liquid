@@ -67,7 +67,7 @@
     {% elsif current_route contains 'shop' %}
       {% assign text_color = 'text-black' %}
       {% assign path_to_logo = 'logo-dark.svg' %}
-      {% assign promo_banner = true %}
+      {% assign promo_banner = false %}
     {% elsif current_route contains 'cart' %}
       {% assign text_color = 'text-black' %}
       {% assign path_to_logo = 'logo-dark.svg' %}
@@ -76,7 +76,7 @@
       {% assign path_to_logo = 'logo-dark.svg' %}
       {% assign promo_banner = false %}
     {% else %}
-      {% assign promo_banner = true %}
+      {% assign promo_banner = false %}
     {% endif %}
 
     {% render 'header', text_color: text_color, logo: path_to_logo, promo_banner: promo_banner %}
