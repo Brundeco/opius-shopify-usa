@@ -135,9 +135,11 @@
           <p class=" text-2xl font-medium">Total: {{ cart.total_price | money }}</p>
           {% if cart.total_price >= 14000 %}
             <p class=" text-gray-600 text-sm">Congrats, you're eligible for free shipping</p>
+            <p class="text-xs border border-black text-opiusDeepGreen px-3 py-0.5 mt-2 bg-gray-200 border-opacity-15">Sales taxes calculated at checkout</p>
           {% else %}
             <p class=" text-sm font-medium mb-2">Shipping not included: $5.00</p>
-            <p class="text-xs border border-black text-opiusDeepGreen px-3 py-1 my-4">Free shipping when reaching $140.00 or more</p>
+            <p class="text-xs border border-black text-opiusDeepGreen px-3 py-0.5 my-2 bg-gray-200 border-opacity-15">Free shipping when reaching $140.00 or more</p>
+            <p class="text-xs border border-black text-opiusDeepGreen px-3 py-0.5 bg-gray-200 border-opacity-15 mb-5">Sales taxes calculated at checkout</p>
           {% endif %}
           <div class="flex justify-stretch lg:justify-start w-full lg:max-w-48">
             <a

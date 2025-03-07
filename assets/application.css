@@ -1493,6 +1493,10 @@ video {
   --tw-border-opacity: 0.5;
 }
 
+.border-opacity-15 {
+  --tw-border-opacity: 0.15;
+}
+
 .bg-OpiusRubedoAccent {
   --tw-bg-opacity: 1;
   background-color: rgb(224 212 175 / var(--tw-bg-opacity, 1));
@@ -1541,6 +1545,11 @@ video {
 .bg-opiusBlue {
   --tw-bg-opacity: 1;
   background-color: rgb(118 161 180 / var(--tw-bg-opacity, 1));
+}
+
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-100 {
