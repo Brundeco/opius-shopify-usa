@@ -131,13 +131,14 @@
         </ul>
 
         <!-- Cart subtotal -->
-        <div class=" px-4 border border-black border-opacity-10 rounded-md mt-4 py-8 justify-end items-end flex flex-col gap-3">
+        <div class=" px-4 border border-black border-opacity-10 rounded-md mt-4 py-8 justify-end items-end flex flex-col">
+          <p class=" text-2xl font-medium">Total: {{ cart.total_price | money }}</p>
           {% if cart.total_price >= 14000 %}
             <p class=" text-gray-600 text-sm">Congrats, you're eligible for free shipping</p>
           {% else %}
-            <p class=" text-gray-600 text-sm">Free shipping when reaching $140.00 or more</p>
+            <p class=" text-sm font-medium mb-2">Shipping not included: $5.00</p>
+            <p class="text-xs border border-black text-opiusDeepGreen px-3 py-1 my-4">Free shipping when reaching $140.00 or more</p>
           {% endif %}
-          <p class=" text-2xl font-medium">Total: {{ cart.total_price | money }}</p>
           <div class="flex justify-stretch lg:justify-start w-full lg:max-w-48">
             <a
               href="/checkout"
@@ -145,7 +146,7 @@
               >Checkout</a
             >
           </div>
-          <p class=" font-medium text-sm mt-3">For corporate inquiries or invoices, please contact nguillant@on-bev.com</p>
+          <p class=" font-medium text-sm mt-8">For corporate inquiries or invoices, please contact <a class="underline" href="mailto:nguillant@on-bev.com" class="">nguillant@on-bev.com</a></p>
         </div>
       {% else %}
         <p>Your cart is empty.</p>
