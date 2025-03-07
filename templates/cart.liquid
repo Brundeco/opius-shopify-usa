@@ -134,7 +134,7 @@
         <div class=" px-4 border border-black border-opacity-10 rounded-md mt-4 py-8 justify-end items-end flex flex-col">
           <p class=" text-2xl font-medium">Total: {{ cart.total_price | money }}</p>
           {% if cart.total_price >= 14000 %}
-            <p class=" text-gray-600 text-sm">Congrats, you're eligible for free shipping</p>
+            <p class=" text-gray-600 bg-green-200 border border-green-700 text-xs border-opacity-15 px-3 py-0.5 mt-2">Congrats, you're eligible for free shipping</p>
             <p class="text-xs border border-black text-opiusDeepGreen px-3 py-0.5 mt-2 bg-gray-200 border-opacity-15">Sales taxes calculated at checkout</p>
           {% else %}
             <p class=" text-sm font-medium mb-2">Shipping not included: $5.00</p>
