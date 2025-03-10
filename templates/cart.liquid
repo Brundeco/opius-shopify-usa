@@ -36,10 +36,13 @@
           </div>
         </div>
       </div>
-      {% for item in cart.items -%}
-        {{- item.product.title }} - {{ item.quantity -}}
-        - {{ ' ' }}
-      {%- endfor %}
+      {% comment %}
+        {% for item in cart.items -%}
+          {{- item.product.title }} - {{ item.quantity -}}
+          - total in CART: {{ cart.item_count }} - {{ ' ' }}
+          <br>
+        {%- endfor %}
+      {% endcomment %}
 
       {% assign delay = 0 %}
       {% if cart.items.size > 0 %}
@@ -113,8 +116,8 @@
         </ul>
 
         <!-- Cart subtotal -->
-        <div class=" px-4 border border-black border-opacity-10 rounded-md mt-4 py-8 justify-end items-end flex flex-col">
-          <p class=" text-2xl font-medium">Total: {{ cart.total_price | money }}</p>
+        <div class=" px-4 border border-black border-opacity-10 rounded-md mt-4 py-8 justify-end items-start lg:items-end flex flex-col">
+          <p class=" text-2xl font-medium mb-2 lg:mb-0">Total: {{ cart.total_price | money }}</p>
           {% assign big_bottle_count = 0 %}
           {% assign small_bottle_count = 0 %}
 
@@ -126,10 +129,15 @@
             {% endif %}
           {% endfor %}
 
-          {% assign equivalent_small_bottles = big_bottle_count | times: 1.75 %}
-          {% assign total_small_bottle_units = small_bottle_count | plus: equivalent_small_bottles | round %}
+          {% assign equivalent_small_bottles = big_bottle_count | times: 8 | divided_by: 6 %}
+          {% assign total_small_bottle_units = small_bottle_count | plus: equivalent_small_bottles %}
 
-          {% if big_bottle_count >= 6 or small_bottle_count >= 8 or total_small_bottle_units >= 8 %}
+          {% if big_bottle_count >= 6
+            or small_bottle_count >= 8
+            or total_small_bottle_units >= 8
+            and big_bottle_count > 0
+            and small_bottle_count > 0
+          %}
             <p class="text-gray-600 bg-green-200 border border-green-700 text-xs border-opacity-15 px-3 py-0.5 mt-2">
               Congrats, you're eligible for free shipping
             </p>
@@ -146,28 +154,10 @@
             </p>
           {% endif %}
 
-          {% comment %}
-            {% if cart.total_price >= 14000 %}
-              <p class=" text-gray-600 bg-green-200 border border-green-700 text-xs border-opacity-15 px-3 py-0.5 mt-2">
-                Congrats, you're eligible for free shipping
-              </p>
-              <p class="text-xs border border-black text-opiusDeepGreen px-3 py-0.5 mt-2 bg-gray-200 border-opacity-15">
-                Sales taxes calculated at checkout
-              </p>
-            {% else %}
-              <p class=" text-sm font-medium mb-2">Shipping not included: $5.00</p>
-              <p class="text-xs border border-black text-opiusDeepGreen px-3 py-0.5 my-2 bg-gray-200 border-opacity-15">
-                Free shipping when reaching $140.00 or more
-              </p>
-              <p class="text-xs border border-black text-opiusDeepGreen px-3 py-0.5 bg-gray-200 border-opacity-15 mb-5">
-                Sales taxes calculated at checkout
-              </p>
-            {% endif %}
-          {% endcomment %}
           <div class="flex justify-stretch lg:justify-start w-full lg:max-w-48">
             <a
               href="/checkout"
-              class="btn bg-black text-white px-4 py-2 mt-2 lg:mt-3 hover:bg-transparent border border-black hover:text-black w-full text-center"
+              class="btn bg-black text-white px-4 py-2 mt-6 lg:mt-3 hover:bg-transparent border border-black hover:text-black w-full text-center"
               >Checkout</a
             >
           </div>
