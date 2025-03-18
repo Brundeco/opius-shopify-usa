@@ -1,7 +1,8 @@
 {
   "scripts": {
     "watch": "npx tailwind -i ./assets/tailwind.css -o ./assets/application.css --watch",
-    "push": "shopify theme push --store=1r0rms-kr.myshopify.com --password=shptka_4e47c9da4a99486fdfb8f17768af68b1"
+    "push": "shopify theme push --store=1r0rms-kr.myshopify.com --password=shptka_4e47c9da4a99486fdfb8f17768af68b1",
+    "serve": "shopify theme dev --store=1r0rms-kr.myshopify.com"
   },
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "^1.5.0",
