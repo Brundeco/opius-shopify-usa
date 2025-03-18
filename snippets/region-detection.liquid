@@ -1,0 +1,121 @@
+<div
+  id="geo-message"
+  class="fixed z-[1000] wrap hidden flex-col justify-center items-center bg-black bg-opacity-70 w-screen h-screen pointer-events-none"
+>
+  <div class=" p-6 lg:p-14 flex flex-col gap-4 bg-OpiusRubedoAccent pointer-events-auto">
+    <p class=" mb-4 font-medium max-w-xs text-center leading-5">
+      You are browsing from within EU zone, and will be redirected to the EU webshop any moment...
+    </p>
+    <button
+      id="redirect-btn"
+      class=" bg-opiusDeepGreen text-white px-5 py-4 font-medium text-sm transition-all duration-500"
+    >
+      Redirect me now
+    </button>
+    {% comment %} <p class=" text-xs font-medium mt-5 text-center">Redirect will happen automatically any moment</p> {% endcomment %}
+    {% comment %}
+      <button
+        class=" border-opiusDeepGreen border px-5 py-4 text-xs hover:bg-opiusDeepGreen hover:text-white transition-all duration-500"
+      >
+        Stay on <span class=" font-medium">USA</span> store
+      </button>
+    {% endcomment %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch('https://ipapi.co/json/') // You can also use 'https://ipinfo.io/json'
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('User Location Data:', data); // Logs the API response to the console
+
+        return data; // Ensure the next then() receives the data
+      })
+
+      .then((data) => {
+        // List of EU country codes
+        const euCountries = [
+          'AT',
+          'BE',
+          'BG',
+          'CY',
+          'CZ',
+          'DE',
+          'DK',
+          'EE',
+          'ES',
+          'FI',
+          'FR',
+          'GR',
+          'HR',
+          'HU',
+          'IE',
+          'IT',
+          'LT',
+          'LU',
+          'LV',
+          'MT',
+          'NL',
+          'PL',
+          'PT',
+          'RO',
+          'SE',
+          'SI',
+          'SK',
+        ];
+
+        // Check if user is from an EU country
+        if (euCountries.includes(data.country_code)) {
+          const geoMessage = document.getElementById('geo-message');
+          geoMessage.style.display = 'flex';
+
+          // Set automatic redirect after 5 seconds (5000 ms)
+          setTimeout(function () {
+            window.location.href = 'https://opius-distillery.com';
+          }, 5000);
+
+          // Allow manual redirect when button is clicked
+          document.getElementById('redirect-btn').addEventListener('click', function () {
+            window.location.href = 'https://opius-distillery.com';
+          });
+        }
+      })
+      .catch((error) => console.error('Error detecting location:', error));
+  });
+</script>
+
+{% comment %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('https://ipapi.co/json/') // You can also use 'https://ipinfo.io/json'
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('User Location Data:', data); // Logs the API response to the console
+
+          return data; // Ensure the next then() receives the data
+        })
+
+        .then((data) => {
+          console.log('Region detection activated!');
+
+          // Show message if user is NOT from the USA
+          if (data.country_code !== 'US') {
+            const geoMessage = document.getElementById('geo-message');
+            geoMessage.style.display = 'flex';
+
+            // Set automatic redirect after 12 seconds (12000 ms)
+            setTimeout(function () {
+              window.location.href = 'https://opius-distillery.com';
+            }, 5000);
+
+            // Allow manual redirect when button is clicked
+            document.getElementById('redirect-btn').addEventListener('click', function () {
+              window.location.href = 'https://opius-distillery.com';
+            });
+          }
+        })
+        .catch((error) => console.error('Error detecting location:', error));
+    });
+  </script>
+{% endcomment %}
