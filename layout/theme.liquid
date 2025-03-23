@@ -6,22 +6,12 @@
     {{ content_for_header }}
     {{ 'style-fonts.css' | asset_url | stylesheet_tag }}
 
-    <!-- Google Tag Manager -->
-    <!--
-      <script>
-        (function (w, d, s, l, i) {
-          w[l] = w[l] || [];
-          w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-          var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s),
-            dl = l != 'dataLayer' ? '&l=' + l : '';
-          j.async = true;
-          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-          f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-5GTN25B');
-      </script>
-    -->
-    <!-- End Google Tag Manager -->
+    <title>
+      Opius Distillery |
+      {{ page_title }}
+    </title>
+    <meta name="author" content="Opius Distillery">
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css">
@@ -32,27 +22,29 @@
 
     <!-- AOS JS -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
-    <!--
-      <script>
-        window.dataLayer = window.dataLayer || [];
-      </script>
-    -->
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Opius Distillery - Extraordinary Non-alcoholic Elixirs">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ shop.url }}">
+    <meta property="og:image" content="{{ 'og-opius-socials.jpg' | asset_url }}">
+    <meta
+      property="og:description"
+      content="A range of fine spirits created through a special formulation of plants and herbs capturing all the experience and sensation - without a drop of alcohol."
+    >
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Opius Distillery - Extraordinary Non-alcoholic Elixirs">
+    <meta
+      name="twitter:description"
+      content="A range of fine spirits created through a special formulation of plants and herbs capturing all the experience and sensation - without a drop of alcohol."
+    >
+    <meta name="twitter:image" content="{{ 'og-opius-socials.jpg' | asset_url }}">
   </head>
 
   <body>
     {% render 'region-detection' %}
-    <!-- Google Tag Manager (noscript) -->
-    <!--
-      <noscript
-        ><iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-5GTN25B"
-          height="0"
-          width="0"
-          style="display:none;visibility:hidden"
-        ></iframe
-      ></noscript>
-    -->
-    <!-- End Google Tag Manager (noscript) -->
 
     {% assign text_color = 'text-black' %}
     {% assign path_to_logo = 'logo-dark.svg' %}
@@ -121,12 +113,3 @@
     -->
   </body>
 </html>
-
-<script>
-  // Detect if running on localhost or Shopify's preview environment
-  if (window.location.includes('127.0.0.1') || (window.Shopify && Shopify.preview)) {
-    document.getElementById('shopify-pc__banner').style.display = 'none';
-  }
-
-  console.log(window.location);
-</script>
