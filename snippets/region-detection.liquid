@@ -24,98 +24,60 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    fetch('https://ipapi.co/json/') // You can also use 'https://ipinfo.io/json'
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('User Location Data:', data); // Logs the API response to the console
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const res = await fetch('https://ipapi.co/json/', { cache: 'no-store' });
+      const data = await res.json();
+      const code = String(data?.country_code || '').toUpperCase();
 
-        return data; // Ensure the next then() receives the data
-      })
+      const EU_EEA = new Set([
+        'AT',
+        'BE',
+        'BG',
+        'CY',
+        'CZ',
+        'DE',
+        'DK',
+        'EE',
+        'ES',
+        'FI',
+        'FR',
+        'GR',
+        'HR',
+        'HU',
+        'IE',
+        'IT',
+        'LT',
+        'LU',
+        'LV',
+        'MT',
+        'NL',
+        'PL',
+        'PT',
+        'RO',
+        'SE',
+        'SI',
+        'SK',
+        'NO',
+        'IS',
+        'LI',
+        'CH',
+      ]);
 
-      .then((data) => {
-        // List of EU country codes
-        const euCountries = [
-          'AT',
-          'BE',
-          'BG',
-          'CY',
-          'CZ',
-          'DE',
-          'DK',
-          'EE',
-          'ES',
-          'FI',
-          'FR',
-          'GR',
-          'HR',
-          'HU',
-          'IE',
-          'IT',
-          'LT',
-          'LU',
-          'LV',
-          'MT',
-          'NL',
-          'PL',
-          'PT',
-          'RO',
-          'SE',
-          'SI',
-          'SK',
-        ];
+      if (!code) return;
 
-        // Check if user is from an EU country
-        if (euCountries.includes(data.country_code)) {
-          const geoMessage = document.getElementById('geo-message');
-          geoMessage.style.display = 'flex';
-
-          // Set automatic redirect after 5 seconds (5000 ms)
-          setTimeout(function () {
-            window.location.href = 'https://opius-distillery.com';
-          }, 5000);
-
-          // Allow manual redirect when button is clicked
-          document.getElementById('redirect-btn').addEventListener('click', function () {
-            window.location.href = 'https://opius-distillery.com';
-          });
-        }
-      })
-      .catch((error) => console.error('Error detecting location:', error));
+      if (EU_EEA.has(code)) {
+        const geo = document.getElementById('geo-message');
+        geo.style.display = 'flex';
+        setTimeout(() => {
+          window.location.href = 'https://opius-distillery.com';
+        }, 5000);
+        document.getElementById('redirect-btn').onclick = () => {
+          window.location.href = 'https://opius-distillery.com';
+        };
+      }
+    } catch (e) {
+      console.error('Geo error:', e);
+    }
   });
 </script>
-
-{% comment %}
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      fetch('https://ipapi.co/json/') // You can also use 'https://ipinfo.io/json'
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('User Location Data:', data); // Logs the API response to the console
-
-          return data; // Ensure the next then() receives the data
-        })
-
-        .then((data) => {
-          console.log('Region detection activated!');
-
-          // Show message if user is NOT from the USA
-          if (data.country_code !== 'US') {
-            const geoMessage = document.getElementById('geo-message');
-            geoMessage.style.display = 'flex';
-
-            // Set automatic redirect after 12 seconds (12000 ms)
-            setTimeout(function () {
-              window.location.href = 'https://opius-distillery.com';
-            }, 5000);
-
-            // Allow manual redirect when button is clicked
-            document.getElementById('redirect-btn').addEventListener('click', function () {
-              window.location.href = 'https://opius-distillery.com';
-            });
-          }
-        })
-        .catch((error) => console.error('Error detecting location:', error));
-    });
-  </script>
-{% endcomment %}
